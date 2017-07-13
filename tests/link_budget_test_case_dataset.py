@@ -17,7 +17,7 @@ class LinkBudgetTestCaseDataset():
             'that will later be updated to be an accurate description of the test case, instead ' \
             'of this long winded thing that is clearly not meant to be part of real documentation.'
         data.downlink_frequency = 137.5 * units.megahertz
-        data.target_energy_per_bit_to_noise_power_ratio = 20.0 # dB
+        data.target_energy_noise_ratio = 20.0 # dB
         data.implementation_loss = 1.0 # dB
         data.transmit_power = 5.0 * units.watt
         data.transmit_losses = -1.0 # dB 
@@ -34,7 +34,8 @@ class LinkBudgetTestCaseDataset():
 
     def __getitem__(self, key):
         data = self._datatable[key]
-        return None
+        # TODO: make this return a LinkBudgetTestCase, which extends a LinkBudget class. 
+        return data
 
     def __len__(self):
         return len(self._datatable)
