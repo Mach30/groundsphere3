@@ -21,7 +21,10 @@ class TestLinkBudget(unittest.TestCase):
         self._test_dataset_item(0)
 
     def _test_dataset_item(self, item_number):
+        # get the test case data
         tc_data = self.test_case_dataset[item_number]
+
+        # make sure all of the inputs are set
         self.assertIsNotNone(tc_data.name)
         self.assertIsNotNone(tc_data.description)
         self.assertIsNotNone(tc_data.downlink_frequency)
@@ -37,3 +40,14 @@ class TestLinkBudget(unittest.TestCase):
         self.assertIsNotNone(tc_data.receiving_pointing_loss)
         self.assertIsNotNone(tc_data.system_noise_figure)
         self.assertIsNotNone(tc_data.noise_bandwidth)
+
+        # make sure all the expected output values are present. not testing for None because a 
+        # None would be used when the test case should not be able to produce results, such as in
+        # an error condition
+        self.assertTrue(hasattr(tc_data, 'received_power'))
+        self.assertTrue(hasattr(tc_data, 'minimum_detectable_signal'))
+        self.assertTrue(hasattr(tc_data, 'energy_noise_ratio'))
+        self.assertTrue(hasattr(tc_data, 'link_margin'))
+        
+        # TODO: tests that validate that the calculations are successfully performed, and match the
+        # expected output.
