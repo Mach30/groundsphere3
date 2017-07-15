@@ -1,0 +1,26 @@
+Proposed Test Cases
+
+1) GS Mk 3
+    - This is the one described in our documentation already
+
+2) GS Mk 3 High Elevation Angle
+    - Mostly the same as #1, but his a higher elevation angle, and therefore less pointing loss for the antenna
+
+3) GS Mk 3 Low Elevation Angle
+    - Similar to #2, but with a low elevation angle, and greater pointing loss
+    - This link budget may generate a negative margin, which is fine as a point of test
+
+4) GS Mk 3 High Gain Antenna, With Tracking
+    - 
+
+5) GS Mk 3 High Gain Antenna, no tracking
+
+6) 
+
+7)
+
+8)
+
+9)
+
+10)
