@@ -40,6 +40,26 @@ Proposed Test Cases
     - DSN receiving signals from Voyager spacecraft
     - VCC (USIP) Cubesat Link Budget
     - Another Ground Station at VT link budget Zach may know about
+
+Cases that should break the LB
+11) Elevation Angle Below the horizon
+
+12) Frequency outside of realistic limits (this is optional, requesting feedback)
+    - 100 GHz probably isn't realistic, maybe some sort of warning
+    - 3 Hz also isn't realistic
+    - Maybe okay between 30 MHz and 30 GHz
+
+13) Incorrectly signed values
+    - Losses MUST be <= 0
+    - Gains could be positive or negative, but are usually positive
+    - Distance must be positive
+    - Noise figure >= 0
+    - Certain bandwidths wouldn't make sense, i.e. < 0 or > 10G
     
-    
-    
+
+
+
+
+
+
+
