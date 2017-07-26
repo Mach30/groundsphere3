@@ -15,7 +15,7 @@ class LinkBudgetTestCaseDataset():
         data = self._Data()
         data.name = 'NOAA Weather Satellite'
         data.description = 'Standard link budget for the groundsphere Mk 3 setup. Includes      ' \
-            'values for eggbeater antenna, NOAA 19 weather satellite, geosynchronous orbit, and ' \
+            'values for eggbeater antenna, NOAA 19 weather satellite, inclined orbit, and ' \
             '137.5 MHz APT data. Used as target link budget calculation.' \
             'Developed by Mach 30 team using known, researched system values. '
         data.reference = 'https://www.wmo-sat.info/oscar/satellites/view/341'
