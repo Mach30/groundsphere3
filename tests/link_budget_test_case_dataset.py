@@ -20,25 +20,27 @@ class LinkBudgetTestCaseDataset():
             'Developed by Mach 30 team using known, researched system values. '
         data.reference = 'https://www.wmo-sat.info/oscar/satellites/view/341'
         # inputs
-        data.downlink_frequency = 137.5 * units.megahertz
-        data.target_energy_noise_ratio = 20.0 # dB
-        data.implementation_loss = 1.0 # dB
-        data.transmit_power = 5.0 * units.watt
-        data.transmit_losses = -1.0 # dB 
-        data.transmit_antenna_gain = 4.0 # dB
-        data.transmit_pointing_loss = -3.0 # dB
-        data.link_distance = 1677.2 * units.kilometers
-        data.polarization_losses = 0.0 # dB
-        data.atmospheric_loss = -1.1 # dB
-        data.receiver_gain = 5.4 # dB
-        data.receiving_pointing_loss = -3.0 # dB 
-        data.system_noise_figure = 5.0 # dB
-        data.noise_bandwidth = 34.0 * units.kilohertz
+        data.altitude_ground_station = 400                   # m
+        data.altitude_satellite = 860                        # km
+        data.orbit_elevation_angle = 25                      # deg
+        data.downlink_frequency = 137.5 * units.megahertz    # Hz
+        data.target_energy_noise_ratio = 20.0                # dB
+        data.implementation_loss = 1.0                       # dB
+        data.transmit_power = 5.0 * units.watt               # Watt
+        data.transmit_losses = -1.0                          # dB 
+        data.transmit_antenna_gain = 4.0                     # dB
+        data.transmit_pointing_loss = -3.0                   # dB
+        data.polarization_losses = 0.0                       # dB
+        data.atmospheric_loss = -1.1                         # dB
+        data.receiver_gain = 5.4                             # dB
+        data.receiving_pointing_loss = -3.0                  # dB 
+        data.system_noise_figure = 5.0                       # dB
+        data.noise_bandwidth = 34.0 * units.kilohertz        # Hz
         # outputs
-        data.received_power = -101.4 # dB
-        data.minimum_detectable_signal = -123.7 # dB
-        data.energy_noise_ratio = 22.3 # dB
-        data.link_margin = 1.3 # dB
+        data.received_power = -101.4                         # dBm
+        data.minimum_detectable_signal = -123.7              # dBm
+        data.energy_noise_ratio = 22.3                       # dB
+        data.link_margin = 1.3                               # dB
         # add it to the data table
         self._datatable.append(data)
 
