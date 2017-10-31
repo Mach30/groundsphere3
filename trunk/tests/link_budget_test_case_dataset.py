@@ -20,9 +20,9 @@ class LinkBudgetTestCaseDataset():
             'Developed by Mach 30 team using known, researched system values. '
         data.reference = 'https://www.wmo-sat.info/oscar/satellites/view/341'
         # inputs
-        data.altitude_ground_station = 400                   # m
-        data.altitude_satellite = 860                        # km
-        data.orbit_elevation_angle = 25                      # deg
+        data.altitude_ground_station = 400 * units.meter     # m
+        data.altitude_satellite = 860 * units.kilometer      # km
+        data.orbit_elevation_angle = 25 * units.degree       # deg
         data.downlink_frequency = 137.5 * units.megahertz    # Hz
         data.target_energy_noise_ratio = 20.0                # dB
         data.implementation_loss = 1.0                       # dB
@@ -36,6 +36,13 @@ class LinkBudgetTestCaseDataset():
         data.receiving_pointing_loss = -3.0                  # dB 
         data.system_noise_figure = 5.0                       # dB
         data.noise_bandwidth = 34.0 * units.kilohertz        # Hz
+		# intermediates
+		data.downlink_wavelength = 2.180 * units.meter       # m
+		data.link_distance = 1700 * units.kilometer          # km
+		data.required_ebno = 21.0                            # dB
+		data.transmit_power_dBm = 37.0                       # dBm
+		data.transmit_eirp = 37.0                            # dBm
+		data.downlink_path_loss = -140                       # dB
         # outputs
         data.received_power = -101.4                         # dBm
         data.minimum_detectable_signal = -123.7              # dBm
