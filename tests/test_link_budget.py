@@ -27,13 +27,16 @@ class TestLinkBudget(unittest.TestCase):
         # make sure all of the inputs are set
         self.assertIsNotNone(tc_data.name)
         self.assertIsNotNone(tc_data.description)
+        self.assertIsNotNone(tc_data.reference)
+        self.assertIsNotNone(tc_data.altitude_ground_station)
+        self.assertIsNotNone(tc_data.altitude_satellite)
+        self.assertIsNotNone(tc_data.data.orbit_elevation_angle)
         self.assertIsNotNone(tc_data.downlink_frequency)
         self.assertIsNotNone(tc_data.target_energy_noise_ratio)
         self.assertIsNotNone(tc_data.implementation_loss)
         self.assertIsNotNone(tc_data.transmit_losses)
         self.assertIsNotNone(tc_data.transmit_antenna_gain)
         self.assertIsNotNone(tc_data.transmit_pointing_loss)
-        self.assertIsNotNone(tc_data.link_distance)
         self.assertIsNotNone(tc_data.polarization_losses)
         self.assertIsNotNone(tc_data.atmospheric_loss)
         self.assertIsNotNone(tc_data.receiver_gain)
@@ -44,6 +47,15 @@ class TestLinkBudget(unittest.TestCase):
         # make sure all the expected output values are present. not testing for None because a 
         # None would be used when the test case should not be able to produce results, such as in
         # an error condition
+		# intermediates also have a calculated value, and can be tested
+		# intermediates
+        self.assertTrue(hasattr(tc_data, 'downlink_wavelength'))
+        self.assertTrue(hasattr(tc_data, 'link_distance'))
+        self.assertTrue(hasattr(tc_data, 'required_ebno'))
+        self.assertTrue(hasattr(tc_data, 'transmit_power_dBm'))
+        self.assertTrue(hasattr(tc_data, 'transmit_eirp'))
+        self.assertTrue(hasattr(tc_data, 'downlink_path_loss'))
+		# outputs
         self.assertTrue(hasattr(tc_data, 'received_power'))
         self.assertTrue(hasattr(tc_data, 'minimum_detectable_signal'))
         self.assertTrue(hasattr(tc_data, 'energy_noise_ratio'))
