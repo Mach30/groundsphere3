@@ -1,65 +1,78 @@
 import unittest
-from . import LinkBudgetTestCaseDataset
+import pint
+from link_budget_test_case_dataset import LinkBudgetTestCaseDataset
+from link_budget_calculator import LinkBudgetCalculator
 
 class TestLinkBudget(unittest.TestCase):
 
-    NUM_TEST_CASES = 1
+	NUM_TEST_CASES = 1
 
-    def setUp(self):
-        self.test_case_dataset = LinkBudgetTestCaseDataset()
+	def setUp(self):
+		self.test_case_dataset = LinkBudgetTestCaseDataset()
         
-    def test_iterable(self):
-        count = 0
-        for item in self.test_case_dataset:
-            count += 1
-        self.assertEqual(self.NUM_TEST_CASES, count)
+	def test_iterable(self):
+		count = 0
+		for item in self.test_case_dataset:
+			count += 1
+		self.assertEqual(self.NUM_TEST_CASES, count)
 
-    def test_len(self):
-        self.assertEqual(self.NUM_TEST_CASES, len(self.test_case_dataset))
+	def test_len(self):
+		self.assertEqual(self.NUM_TEST_CASES, len(self.test_case_dataset))
 
-    def test_lb1(self):
-        self._test_dataset_item(0)
+	def test_lb1(self):
+		self._test_dataset_item(0)
 
-    def _test_dataset_item(self, item_number):
-        # get the test case data
-        tc_data = self.test_case_dataset[item_number]
+	def _test_dataset_item(self, item_number):
+		# get the test case data
+		tc_data = self.test_case_dataset[item_number]
 
-        # make sure all of the inputs are set
-        self.assertIsNotNone(tc_data.name)
-        self.assertIsNotNone(tc_data.description)
-        self.assertIsNotNone(tc_data.reference)
-        self.assertIsNotNone(tc_data.altitude_ground_station)
-        self.assertIsNotNone(tc_data.altitude_satellite)
-        self.assertIsNotNone(tc_data.data.orbit_elevation_angle)
-        self.assertIsNotNone(tc_data.downlink_frequency)
-        self.assertIsNotNone(tc_data.target_energy_noise_ratio)
-        self.assertIsNotNone(tc_data.implementation_loss)
-        self.assertIsNotNone(tc_data.transmit_losses)
-        self.assertIsNotNone(tc_data.transmit_antenna_gain)
-        self.assertIsNotNone(tc_data.transmit_pointing_loss)
-        self.assertIsNotNone(tc_data.polarization_losses)
-        self.assertIsNotNone(tc_data.atmospheric_loss)
-        self.assertIsNotNone(tc_data.receiver_gain)
-        self.assertIsNotNone(tc_data.receiving_pointing_loss)
-        self.assertIsNotNone(tc_data.system_noise_figure)
-        self.assertIsNotNone(tc_data.noise_bandwidth)
+		# make sure all of the inputs are set
+		self.assertIsNotNone(tc_data.name)
+		self.assertIsNotNone(tc_data.description)
+		self.assertIsNotNone(tc_data.reference)
+		self.assertIsNotNone(tc_data.altitude_ground_station)
+		self.assertIsNotNone(tc_data.altitude_satellite)
+		self.assertIsNotNone(tc_data.orbit_elevation_angle)
+		self.assertIsNotNone(tc_data.downlink_frequency)
+		self.assertIsNotNone(tc_data.target_energy_noise_ratio)
+		self.assertIsNotNone(tc_data.implementation_loss)
+		self.assertIsNotNone(tc_data.transmit_losses)
+		self.assertIsNotNone(tc_data.transmit_antenna_gain)
+		self.assertIsNotNone(tc_data.transmit_pointing_loss)
+		self.assertIsNotNone(tc_data.polarization_losses)
+		self.assertIsNotNone(tc_data.atmospheric_loss)
+		self.assertIsNotNone(tc_data.receiver_gain)
+		self.assertIsNotNone(tc_data.receiving_pointing_loss)
+		self.assertIsNotNone(tc_data.system_noise_figure)
+		self.assertIsNotNone(tc_data.noise_bandwidth)
 
-        # make sure all the expected output values are present. not testing for None because a 
-        # None would be used when the test case should not be able to produce results, such as in
-        # an error condition
+		# make sure all the expected output values are present. not testing for None because a 
+		# None would be used when the test case should not be able to produce results, such as in
+		# an error condition
 		# intermediates also have a calculated value, and can be tested
 		# intermediates
-        self.assertTrue(hasattr(tc_data, 'downlink_wavelength'))
-        self.assertTrue(hasattr(tc_data, 'link_distance'))
-        self.assertTrue(hasattr(tc_data, 'required_ebno'))
-        self.assertTrue(hasattr(tc_data, 'transmit_power_dBm'))
-        self.assertTrue(hasattr(tc_data, 'transmit_eirp'))
-        self.assertTrue(hasattr(tc_data, 'downlink_path_loss'))
+		self.assertTrue(hasattr(tc_data, 'downlink_wavelength'))
+		self.assertTrue(hasattr(tc_data, 'link_distance'))
+		self.assertTrue(hasattr(tc_data, 'required_ebno'))
+		self.assertTrue(hasattr(tc_data, 'transmit_power_dBm'))
+		self.assertTrue(hasattr(tc_data, 'transmit_eirp'))
+		self.assertTrue(hasattr(tc_data, 'downlink_path_loss'))
 		# outputs
-        self.assertTrue(hasattr(tc_data, 'received_power'))
-        self.assertTrue(hasattr(tc_data, 'minimum_detectable_signal'))
-        self.assertTrue(hasattr(tc_data, 'energy_noise_ratio'))
-        self.assertTrue(hasattr(tc_data, 'link_margin'))
-        
-        # TODO: tests that validate that the calculations are successfully performed, and match the
-        # expected output.
+		self.assertTrue(hasattr(tc_data, 'received_power'))
+		self.assertTrue(hasattr(tc_data, 'minimum_detectable_signal'))
+		self.assertTrue(hasattr(tc_data, 'energy_noise_ratio'))
+		self.assertTrue(hasattr(tc_data, 'link_margin'))
+
+		# TODO: tests that validate that the calculations are successfully performed, and match the
+		# expected output.
+
+		ureg = pint.UnitRegistry()
+		
+		lb_calc = LinkBudgetCalculator(ureg)
+		
+		alt = lb_calc.altitude_ground_station()
+		
+		self.assertEqual(alt.magnitude, 0)
+
+if __name__ == '__main__':
+	unittest.main()
