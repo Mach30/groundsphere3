@@ -9,6 +9,7 @@ class TestLinkBudget(unittest.TestCase):
 
 	def setUp(self):
 		self.test_case_dataset = LinkBudgetTestCaseDataset()
+		self.ureg = pint.UnitRegistry()
         
 	def test_iterable(self):
 		count = 0
@@ -21,6 +22,12 @@ class TestLinkBudget(unittest.TestCase):
 
 	def test_lb1(self):
 		self._test_dataset_item(0)
+	
+	def test_default_init(self):
+		lb_calc = LinkBudgetCalculator(self.ureg)
+		
+		self.assertEqual(lb_calc.altitude_ground_station, 0 * self.ureg.meter)
+		# TODO: check all values
 
 	def _test_dataset_item(self, item_number):
 		# get the test case data
@@ -65,14 +72,14 @@ class TestLinkBudget(unittest.TestCase):
 
 		# TODO: tests that validate that the calculations are successfully performed, and match the
 		# expected output.
-
-		ureg = pint.UnitRegistry()
 		
-		lb_calc = LinkBudgetCalculator(ureg)
+		lb_calc = LinkBudgetCalculator(self.ureg)
 		
-		alt = lb_calc.altitude_ground_station()
+		# TODO: load the data
 		
-		self.assertEqual(alt.magnitude, 0)
+		lb_calc.altitude_ground_station = tc_data.altitude_ground_station
+		
+		self.assertEqual(lb_calc.altitude_ground_station, tc_data.altitude_ground_station)
 
 if __name__ == '__main__':
 	unittest.main()
