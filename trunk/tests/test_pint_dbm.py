@@ -44,6 +44,29 @@ class ConvertTest(unittest.TestCase):
 		with self.assertRaises(Exception) as context:
 			Convert_dBm.add_dBm_power(self.ureg, 30, x)
 		self.assertTrue('Cannot convert' in str(context.exception))
+	
+	def test_Negative_Conversion(self):
+		"""Test if powers below 0 dBm successfully convert to
+		negative dBm values
+		"""
+		x = 10 * self.ureg.uW
+		y = Convert_dBm.power_to_dBm(self.ureg, x)
+		self.assertEqual(y, -20)
+
+	def test_Negative_Addition(self):
+		"""Test if addition with powers below 0 dBm successfully add
+		"""
+		x_1 = -20 #dBm
+		x_2 = 10 * self.ureg.uW
+		y = Convert_dBm.add_dBm_power(self.ureg, x_1, x_2)
+		self.assertEqual(y, -40)
+	
+	def test_To_String(self):
+		"""Test if conversion to string is successful
+		"""
+		x = 10 * self.ureg.W
+		y = Convert_dBm.dBm_to_string(Convert_dBm.power_to_dBm(self.ureg, x))
+		self.assertEqual(y, '40.0 dBm')
 		
 if __name__ == '__main__':
 	unittest.main()

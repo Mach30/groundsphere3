@@ -22,3 +22,10 @@ def add_dBm_power(ureg, val_dBm, val_power):
 	ret:              -- result of addition in dBm
 	"""
 	return val_dBm + power_to_dBm(ureg, val_power)
+
+def dBm_to_string(val_dBm):
+	"""Output a string with the dBm value
+	arg1: 	val_dBm   -- value to add in dBm
+	ret:              -- string representation of value in dBm
+	"""
+	return '{} dBm'.format(val_dBm)
