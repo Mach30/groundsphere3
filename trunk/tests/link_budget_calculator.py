@@ -41,7 +41,6 @@ class LinkBudgetCalculator():
 		self._energy_noise_ratio =        0.0                 # dB
 		self._link_margin =               0.0                 # dB
 	
-	# altitude property
 	@property
 	def altitude_ground_station(self):
 		"""Get the altitude of the ground station
