@@ -56,10 +56,10 @@ class ConvertTest(unittest.TestCase):
 	def test_Negative_Addition(self):
 		"""Test if addition with powers below 0 dBm successfully add
 		"""
-		x_1 = -20 #dBm
+		x_1 = 30 #dBm -- 30 dBm = 1 W
 		x_2 = 10 * self.ureg.uW
 		y = Convert_dBm.add_dBm_power(self.ureg, x_1, x_2)
-		self.assertEqual(y, -40)
+		self.assertEqual(y, 10)
 	
 	def test_To_String(self):
 		"""Test if conversion to string is successful
