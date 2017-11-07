@@ -24,30 +24,30 @@ class LinkBudgetTestCaseDataset():
 		data.altitude_satellite = 860 * ureg.kilometer      # km
 		data.orbit_elevation_angle = 25 * ureg.degree       # deg
 		data.downlink_frequency = 137.5 * ureg.megahertz    # Hz
-		data.target_energy_noise_ratio = 20.0                # dB
-		data.implementation_loss = 1.0                       # dB
+		data.target_energy_noise_ratio = 20.0               # dB
+		data.implementation_loss = -1.0                     # dB
 		data.transmit_power = 5.0 * ureg.watt               # Watt
-		data.transmit_losses = -1.0                          # dB 
-		data.transmit_antenna_gain = 4.0                     # dB
-		data.transmit_pointing_loss = -3.0                   # dB
-		data.polarization_losses = 0.0                       # dB
-		data.atmospheric_loss = -1.1                         # dB
-		data.receiver_gain = 5.4                             # dB
-		data.receiving_pointing_loss = -3.0                  # dB 
-		data.system_noise_figure = 5.0                       # dB
+		data.transmit_losses = -1.0                         # dB 
+		data.transmit_antenna_gain = 4.0                    # dB
+		data.transmit_pointing_loss = -3.0                  # dB
+		data.polarization_losses = 0.0                      # dB
+		data.atmospheric_loss = -0.75                        # dB
+		data.receive_antenna_gain = 5.4                     # dB
+		data.receiving_pointing_loss = -3.0                 # dB 
+		data.system_noise_figure = 5.0                      # dB
 		data.noise_bandwidth = 34.0 * ureg.kilohertz        # Hz
 		# intermediates
 		data.downlink_wavelength = 2.180 * ureg.meter       # m
 		data.link_distance = 1700 * ureg.kilometer          # km
-		data.required_ebno = 21.0                            # dB
-		data.transmit_power_dBm = 37.0                       # dBm
-		data.transmit_eirp = 37.0                            # dBm
-		data.downlink_path_loss = -140                       # dB
+		data.required_ebno = 21.0                           # dB
+		data.transmit_power_dBm = 37.0                      # dBm
+		data.transmit_eirp = 37.0                           # dBm
+		data.downlink_path_loss = -140                      # dB
 		# outputs
-		data.received_power = -101.4                         # dBm
-		data.minimum_detectable_signal = -123.7              # dBm
-		data.energy_noise_ratio = 22.3                       # dB
-		data.link_margin = 1.3                               # dB
+		data.received_power = -100                          # dBm
+		data.minimum_detectable_signal = -124               # dBm
+		data.energy_noise_ratio = 23                        # dB
+		data.link_margin = 2                                # dB
 		# add it to the data table
 		self._datatable.append(data)
 
