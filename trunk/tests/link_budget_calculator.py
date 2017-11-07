@@ -26,7 +26,7 @@ class LinkBudgetCalculator():
 		self._transmit_pointing_loss =  0.0                   # dB
 		self._polarization_losses =     0.0                   # dB
 		self._atmospheric_loss =        0.0                   # dB
-		self._receive_antenna_gain =   0.0                    # dB
+		self._receive_antenna_gain =    0.0                   # dB
 		self._receiving_pointing_loss = 0.0                   # dB 
 		self._system_noise_figure =     0.0                   # dB
 		self._noise_bandwidth =         0 * ureg.hertz        # Hz
@@ -42,6 +42,8 @@ class LinkBudgetCalculator():
 		self._minimum_detectable_signal = 0.0                 # dBm
 		self._energy_noise_ratio =        0.0                 # dB
 		self._link_margin =               0.0                 # dB
+		
+		self._is_valid =                  False               # bool
 		
 		# constants
 		self.c = 2.9979*pow(10,8) * ureg.meter / ureg.second	# Speed of Light
@@ -377,12 +379,26 @@ class LinkBudgetCalculator():
 		"""
 		return self._link_margin
 	
+	@property
+	def is_valid(self):
+		"""Get the is_valid flag to determine if the run() function
+		successfully calculated a link margin
+		"""
+		return self._is_valid
+	
 	def run(self):
-		"""Calculate Link Budget
+		"""Run function to perform calculations necessary to determine outputs
+		of link budget calculation
+		is_valid will result in True if calculations were successful
 	`	"""
+		# set is_valid to false every time a run is initiated
+		self._is_valid = False
+	
 		# Downlink Wavelength m
 		self._downlink_wavelength = self.c / self._downlink_frequency.to('1 / second')
-		print('wavelength: {}'.format(self._downlink_wavelength))
+		
+		# DEBUG
+		#print('wavelength: {}'.format(self._downlink_wavelength))
 		
 		# Link Distance m
 		orbit_elevation_angle_rad = math.radians(self._orbit_elevation_angle.magnitude)
@@ -390,33 +406,59 @@ class LinkBudgetCalculator():
 		alpha = math.asin(((self._altitude_ground_station + self.Re) / (self._altitude_satellite + self.Re)) * math.sin(beta))
 		theta = math.pi - alpha - beta
 		self._link_distance = math.sin(theta) * (self._altitude_satellite + self.Re) / math.sin(beta)
-		print('link_distance: {}'.format(self._link_distance))
+		
+		# DEBUG
+		#print('link_distance: {}'.format(self._link_distance))
 		
 		# Transmit Power dBm
 		self._transmit_power_dBm = power_to_dBm(self._ureg, self._transmit_power)
 		
+		# DEBUG
+		#print('Tx power dBm: {}'.format(self._transmit_power_dBm))
+		
 		# Transmit EIRP dBm
 		self._transmit_eirp = self._transmit_power_dBm + self._transmit_losses + self._transmit_antenna_gain + self._transmit_pointing_loss
+		
+		# DEBUG
+		#print('Tx EIRP: {}'.format(self._transmit_eirp))
 	
 		# Downlink Path Loss dB
-		print(4 * math.pi * self._link_distance / self._downlink_wavelength)
 		self._downlink_path_loss = -20 * math.log10(4 * math.pi * self._link_distance / self._downlink_wavelength)
 		
-		# Required En/N0 dB)
-		_required_ebno = _target_energy_noise_ratio + _implementation_loss
+		# DEBUG
+		#print('Path Loss : {}'.format(self._downlink_path_loss))
+		
+		# Required Eb/N0 dB)
+		self._required_ebno = self._target_energy_noise_ratio - self._implementation_loss
+		
+		# DEBUG
+		#print('Req Eb/N0 : {}'.format(self._required_ebno))
 		
 		# Recieved Power dBm
-		_received_power = add_dBm_power(ureg, _transmit_eirp, _transmit_antenna_gain + _downlink_path_loss + _polarization_losses + _atmospheric_loss +_receive_antenna_gain + _receiving_pointing_loss)
+		self._received_power = self._transmit_eirp + self._downlink_path_loss + self._polarization_losses + self._atmospheric_loss + self._receive_antenna_gain + self._receiving_pointing_loss
+		
+		# DEBUG
+		#print('Rx Power : {}'.format(self._received_power))
 		
 		# MDS dBm
-		_minimum_detectable_signal = dBm_to_string(-174+10*math.log10(_noise_bandwidth)+_system_noise_figure)
+		self._minimum_detectable_signal = -174 + 10 * math.log10(self._noise_bandwidth.to('hertz').magnitude) + self._system_noise_figure
+		
+		# DEBUG
+		#print('MDS : {}'.format(self._minimum_detectable_signal))
 		
 		# Eb/N0 Receieved dB
-		_energy_noise_ratio = add_dBm_power(ureg, _received_power, -_minimum_detectable_signal)
+		self._energy_noise_ratio = self._received_power - self._minimum_detectable_signal
+		
+		# DEBUG
+		#print('Eb/N0 : {}'.format(self._energy_noise_ratio))
 	
 		# Link Margin dB
-		_link_margin = add_dBm_power(ureg, dBm_to_string(_required_ebno), - _energy_noise_ratio)
-	
+		self._link_margin = self._energy_noise_ratio - self._required_ebno
+		
+		# DEBUG
+		#print('Margin : {}'.format(self._link_margin))
+		
+		self._is_valid = True
 	
 		
 	

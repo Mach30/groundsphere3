@@ -49,7 +49,7 @@ class TestLinkBudget(unittest.TestCase):
 		self.assertIsNotNone(tc_data.transmit_pointing_loss)
 		self.assertIsNotNone(tc_data.polarization_losses)
 		self.assertIsNotNone(tc_data.atmospheric_loss)
-		self.assertIsNotNone(tc_data.receiver_gain)
+		self.assertIsNotNone(tc_data.receive_antenna_gain)
 		self.assertIsNotNone(tc_data.receiving_pointing_loss)
 		self.assertIsNotNone(tc_data.system_noise_figure)
 		self.assertIsNotNone(tc_data.noise_bandwidth)
@@ -87,7 +87,8 @@ class TestLinkBudget(unittest.TestCase):
 		lb_calc.transmit_pointing_loss    = tc_data.transmit_pointing_loss
 		lb_calc.polarization_losses       = tc_data.polarization_losses
 		lb_calc.atmospheric_loss          = tc_data.atmospheric_loss
-		lb_calc.receiver_gain             = tc_data.receiver_gain
+		lb_calc.receive_antenna_gain      = tc_data.receive_antenna_gain
+		lb_calc.receiving_pointing_loss   = tc_data.receiving_pointing_loss
 		lb_calc.system_noise_figure       = tc_data.system_noise_figure
 		lb_calc.noise_bandwidth           = tc_data.noise_bandwidth
 		
@@ -104,7 +105,7 @@ class TestLinkBudget(unittest.TestCase):
 		self.assertEqual(lb_calc.transmit_pointing_loss, tc_data.transmit_pointing_loss)
 		self.assertEqual(lb_calc.polarization_losses, tc_data.polarization_losses)
 		self.assertEqual(lb_calc.atmospheric_loss, tc_data.atmospheric_loss)
-		self.assertEqual(lb_calc.receiver_gain, tc_data.receiver_gain)
+		self.assertEqual(lb_calc.receive_antenna_gain, tc_data.receive_antenna_gain)
 		self.assertEqual(lb_calc.system_noise_figure, tc_data.system_noise_figure)
 		self.assertEqual(lb_calc.noise_bandwidth, tc_data.noise_bandwidth)
 		
@@ -124,7 +125,7 @@ class TestLinkBudget(unittest.TestCase):
 		self.assertTrue(abs(lb_calc.received_power - tc_data.received_power) < 10)
 		self.assertTrue(abs(lb_calc.minimum_detectable_signal - tc_data.minimum_detectable_signal) < 1)
 		self.assertTrue(abs(lb_calc.energy_noise_ratio - tc_data.energy_noise_ratio) < 1)
-		self.assertTrue(abs(lb_calc.link_margin - tc_data.link_margin) < 0.1)
+		self.assertTrue(abs(lb_calc.link_margin - tc_data.link_margin) < 1)
 
 if __name__ == '__main__':
 	unittest.main()
