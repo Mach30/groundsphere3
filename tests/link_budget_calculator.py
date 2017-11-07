@@ -290,6 +290,90 @@ class LinkBudgetCalculator():
 		"""
 		self._ureg.check('[frequency]')(value)
 		self._noise_bandwidth = value
+		
+	# ------------------------------------------------
+	# ----------------    outputs     ----------------
+	# ------------------------------------------------
+	
+	# ---------------- downlink_wavelength ----------------
+	@property
+	def downlink_wavelength(self):
+		"""Get the downlink_wavelength in meters
+		ret: downlink_wavelength in meters
+		"""
+		return self._downlink_wavelength
+		
+	# ---------------- link_distance ----------------
+	@property
+	def link_distance(self):
+		"""Get the link_distance in meters
+		ret: link_distance in meters
+		"""
+		return self._link_distance
+		
+	# ---------------- required_ebno ----------------
+	@property
+	def required_ebno(self):
+		"""Get the required_ebno in dB
+		ret: required_ebno in dB
+		"""
+		return self._required_ebno
+		
+	# ---------------- transmit_power_dBm ----------------
+	@property
+	def transmit_power_dBm(self):
+		"""Get the transmit_power_dBm in dBm
+		ret: transmit_power_dBm in dBm
+		"""
+		return self._transmit_power_dBm
+		
+	# ---------------- transmit_eirp ----------------
+	@property
+	def transmit_eirp(self):
+		"""Get the transmit_eirp in dBm
+		ret: transmit_eirp in dBm
+		"""
+		return self._transmit_eirp
+		
+	# ---------------- downlink_path_loss ----------------
+	@property
+	def downlink_path_loss(self):
+		"""Get the downlink_path_loss in dB
+		ret: downlink_path_loss in dB
+		"""
+		return self._downlink_path_loss
+		
+	# ---------------- received_power ----------------
+	@property
+	def received_power(self):
+		"""Get the received_power in dBm
+		ret: received_power in dBm
+		"""
+		return self._received_power
+		
+	# ---------------- minimum_detectable_signal ----------------
+	@property
+	def minimum_detectable_signal(self):
+		"""Get the mds in dBm
+		ret: mds in dBm
+		"""
+		return self._minimum_detectable_signal
+		
+	# ---------------- energy_noise_ratio ----------------
+	@property
+	def energy_noise_ratio(self):
+		"""Get the energy_noise_ratio in dB
+		ret: energy_noise_ratio in dB
+		"""
+		return self._energy_noise_ratio
+		
+	# ---------------- link_margin ----------------
+	@property
+	def link_margin(self):
+		"""Get the link_margin in dB
+		ret: link_margin in dB
+		"""
+		return self._link_margin
 	
 	def run(self):
 		"""Calculate Link Budget
