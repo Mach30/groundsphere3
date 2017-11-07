@@ -1,5 +1,7 @@
 import pint
 import math
+from Convert_dBm import power_to_dBm
+from Convert_dBm import add_dBm_power
 
 class LinkBudgetCalculator():
 	"""Calculator for link budgets	"""
@@ -379,23 +381,26 @@ class LinkBudgetCalculator():
 		"""Calculate Link Budget
 	`	"""
 		# Downlink Wavelength m
-		self._downlink_wavelength = self.c / self._downlink_frequency
+		self._downlink_wavelength = self.c / self._downlink_frequency.to('1 / second')
+		print('wavelength: {}'.format(self._downlink_wavelength))
 		
-		# Link Distance m 
-		_orbit_elevation_angle_rad = math.radians(_orbit_elevation_angle)
-		beta = _orbit_elevation_angle_rad+(pi/2)
-		alpha = math.asin((_altitude_satellite/(_altitude_satellite+Re))*math.sin(beta))
-		theta = (pi/2)-alpha-beta
-		_link_distance = math.sin(theta)*(_altitude_satellite+Re)/math.sin(beta)
+		# Link Distance m
+		orbit_elevation_angle_rad = math.radians(self._orbit_elevation_angle.magnitude)
+		beta = orbit_elevation_angle_rad + (math.pi / 2)
+		alpha = math.asin(((self._altitude_ground_station + self.Re) / (self._altitude_satellite + self.Re)) * math.sin(beta))
+		theta = math.pi - alpha - beta
+		self._link_distance = math.sin(theta) * (self._altitude_satellite + self.Re) / math.sin(beta)
+		print('link_distance: {}'.format(self._link_distance))
 		
 		# Transmit Power dBm
-		_transmit_power_dBm = power_to_dBm(ureg, _transmit_power)
+		self._transmit_power_dBm = power_to_dBm(self._ureg, self._transmit_power)
 		
 		# Transmit EIRP dBm
-		_transmit_eirp = add_dBm_power(ureg, _transmit_power_dBm, _transmit_losses + _transmit_antenna_gain + _transmit_pointing_loss)
+		self._transmit_eirp = self._transmit_power_dBm + self._transmit_losses + self._transmit_antenna_gain + self._transmit_pointing_loss
 	
 		# Downlink Path Loss dB
-		_downlink_path_loss = -20*math.log10(4*pi*_link_distance/_downlink_wavelength)
+		print(4 * math.pi * self._link_distance / self._downlink_wavelength)
+		self._downlink_path_loss = -20 * math.log10(4 * math.pi * self._link_distance / self._downlink_wavelength)
 		
 		# Required En/N0 dB)
 		_required_ebno = _target_energy_noise_ratio + _implementation_loss
