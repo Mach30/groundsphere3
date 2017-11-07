@@ -2,8 +2,8 @@ from pint import UnitRegistry
 
 class LinkBudgetTestCaseDataset():
 
-	def __init__(self):
-		units = UnitRegistry()
+	def __init__(self, ureg):
+		self._ureg = ureg
 		
 		## populatng data without using the LinkBudget class so that any errors with the class,
 		## or any of its methods, will be uncovered during test execution and not during dataset
@@ -20,13 +20,13 @@ class LinkBudgetTestCaseDataset():
 			'Developed by Mach 30 team using known, researched system values. '
 		data.reference = 'https://www.wmo-sat.info/oscar/satellites/view/341'
 		# inputs
-		data.altitude_ground_station = 400 * units.meter     # m
-		data.altitude_satellite = 860 * units.kilometer      # km
-		data.orbit_elevation_angle = 25 * units.degree       # deg
-		data.downlink_frequency = 137.5 * units.megahertz    # Hz
+		data.altitude_ground_station = 400 * ureg.meter     # m
+		data.altitude_satellite = 860 * ureg.kilometer      # km
+		data.orbit_elevation_angle = 25 * ureg.degree       # deg
+		data.downlink_frequency = 137.5 * ureg.megahertz    # Hz
 		data.target_energy_noise_ratio = 20.0                # dB
 		data.implementation_loss = 1.0                       # dB
-		data.transmit_power = 5.0 * units.watt               # Watt
+		data.transmit_power = 5.0 * ureg.watt               # Watt
 		data.transmit_losses = -1.0                          # dB 
 		data.transmit_antenna_gain = 4.0                     # dB
 		data.transmit_pointing_loss = -3.0                   # dB
@@ -35,10 +35,10 @@ class LinkBudgetTestCaseDataset():
 		data.receiver_gain = 5.4                             # dB
 		data.receiving_pointing_loss = -3.0                  # dB 
 		data.system_noise_figure = 5.0                       # dB
-		data.noise_bandwidth = 34.0 * units.kilohertz        # Hz
+		data.noise_bandwidth = 34.0 * ureg.kilohertz        # Hz
 		# intermediates
-		data.downlink_wavelength = 2.180 * units.meter       # m
-		data.link_distance = 1700 * units.kilometer          # km
+		data.downlink_wavelength = 2.180 * ureg.meter       # m
+		data.link_distance = 1700 * ureg.kilometer          # km
 		data.required_ebno = 21.0                            # dB
 		data.transmit_power_dBm = 37.0                       # dBm
 		data.transmit_eirp = 37.0                            # dBm

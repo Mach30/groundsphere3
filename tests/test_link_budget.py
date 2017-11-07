@@ -8,8 +8,8 @@ class TestLinkBudget(unittest.TestCase):
 	NUM_TEST_CASES = 1
 
 	def setUp(self):
-		self.test_case_dataset = LinkBudgetTestCaseDataset()
 		self.ureg = pint.UnitRegistry()
+		self.test_case_dataset = LinkBudgetTestCaseDataset(self.ureg)
         
 	def test_iterable(self):
 		count = 0

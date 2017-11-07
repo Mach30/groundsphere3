@@ -40,10 +40,10 @@ class LinkBudgetCalculator():
 		self._minimum_detectable_signal = 0.0                 # dBm
 		self._energy_noise_ratio =        0.0                 # dB
 		self._link_margin =               0.0                 # dB
+		
 		# constants
-		c = 2.9979*pow(10,8) * ureg.meter / ureg.second	# Speed of Light
-		Re = 6371 * ureg.kilometers	# Average Earth Radius
-		pi = math.pi # pi
+		self.c = 2.9979*pow(10,8) * ureg.meter / ureg.second	# Speed of Light
+		self.Re = 6371 * ureg.kilometers	# Average Earth Radius
 	
 	# ---------------- altitude_ground_station ----------------
 	@property
@@ -90,7 +90,7 @@ class LinkBudgetCalculator():
 		"""Change the elevation angle of satellite relative to gs
 		arg1: value -- elevation angle of satellite
 		"""
-		self._ureg.check('[angle]')(value)
+		self._ureg.check('degree')(value)
 		self._orbit_elevation_angle = value
 		
 	# ---------------- downlink_frequency ----------------
@@ -183,7 +183,7 @@ class LinkBudgetCalculator():
 		"""Change the transmit_antenna_gain in dB
 		arg1: value -- desired transmit_antenna_gain in dB
 		"""
-		self._transmit_losses = value
+		self._transmit_antenna_gain = value
 		
 	# ---------------- transmit_pointing_loss ----------------
 	@property
@@ -379,7 +379,7 @@ class LinkBudgetCalculator():
 		"""Calculate Link Budget
 	`	"""
 		# Downlink Wavelength m
-		_downlink_wavelength = (c/_downlink_frequency).to('m')
+		self._downlink_wavelength = self.c / self._downlink_frequency
 		
 		# Link Distance m 
 		_orbit_elevation_angle_rad = math.radians(_orbit_elevation_angle)
