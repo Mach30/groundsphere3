@@ -1,14 +1,25 @@
 import pint
 import math
-from Convert_dBm import power_to_dBm
-from Convert_dBm import add_dBm_power
 
 class LinkBudgetCalculator():
-	"""Calculator for link budgets	"""
+	"""
+	Calculator for link budgets
+	
+	Steps to use this class:
+		1) Instantiate a calculator with a valid pint unit registry
+		2) Change input variables to match desired link budget values
+		3) Use the run function to update outputs
+		4) Use getters to access output and intermediate values
+	
+	"""
 
 	def __init__(self, ureg):
-		"""Constructor
-		arg1: ureg -- pint Unit Registry
+		"""
+		LinkBudgetCalculator Constructor
+		
+		@type  ureg: pint Unit Registry
+		@param ureg: pint unit registry for calculations and conversions
+		
 		"""
 		# set the unit registry to given pint registry
 		self._ureg = ureg
@@ -52,15 +63,23 @@ class LinkBudgetCalculator():
 	# ---------------- altitude_ground_station ----------------
 	@property
 	def altitude_ground_station(self):
-		"""Get the altitude of the ground station
-		ret: altitude of ground station relative to sea level
+		"""
+		Get the altitude of the ground station
+		
+		@rtype:  pint length
+		@return: altitude of ground station relative to sea level
+		
 		"""
 		return self._altitude_ground_station
 	
 	@altitude_ground_station.setter
 	def altitude_ground_station(self, value):
-		"""Change the altitude of the ground station
-		arg1: value -- altitude of ground station relative to sea level
+		"""
+		Change the altitude of the ground station
+		
+		@type  value: pint length
+		@param value: altitude of ground station relative to sea level
+		
 		"""
 		self._ureg.check('[length]')(value)
 		self._altitude_ground_station = value
@@ -68,15 +87,23 @@ class LinkBudgetCalculator():
 	# ---------------- altitude_satellite ----------------
 	@property
 	def altitude_satellite(self):
-		"""Get the average altitude of the satellite
-		ret: average altitude of satellite relative to sea level
+		"""
+		Get the average altitude of the satellite
+		
+		@rtype:  pint length
+		@return: average altitude of satellite relative to sea level
+		
 		"""
 		return self._altitude_satellite
 	
 	@altitude_satellite.setter
 	def altitude_satellite(self, value):
-		"""Change the altitude of the satellite
-		arg1: value -- altitude of satellite relative to sea level
+		"""
+		Change the altitude of the satellite
+		
+		@type  value: pint length
+		@param value: altitude of satellite relative to sea level
+		
 		"""
 		self._ureg.check('[length]')(value)
 		self._altitude_satellite = value
@@ -84,15 +111,23 @@ class LinkBudgetCalculator():
 	# ---------------- orbit_elevation_angle ----------------
 	@property
 	def orbit_elevation_angle(self):
-		"""Get the elevation angle of the satellite relative to gs
-		ret: orbit_elevation_angle of satellite relative to gs
+		"""
+		Get the elevation angle of the satellite relative to gs
+		
+		@rtype:  pint angle (degrees)
+		@return: orbit_elevation_angle of satellite relative to gs
+		
 		"""
 		return self._orbit_elevation_angle
 	
 	@orbit_elevation_angle.setter
 	def orbit_elevation_angle(self, value):
-		"""Change the elevation angle of satellite relative to gs
-		arg1: value -- elevation angle of satellite
+		"""
+		Change the elevation angle of satellite relative to gs
+		
+		@type  value: pint angle (degrees)
+		@param value: elevation angle of satellite
+		
 		"""
 		self._ureg.check('degree')(value)
 		self._orbit_elevation_angle = value
@@ -100,15 +135,23 @@ class LinkBudgetCalculator():
 	# ---------------- downlink_frequency ----------------
 	@property
 	def downlink_frequency(self):
-		"""Get the downlink frequency in Hertz
-		ret: frequency of downlink signal in Hertz
+		"""
+		Get the downlink frequency in Hertz
+		
+		@rtype:  pint frequency
+		@return: frequency of downlink signal in Hertz
+		
 		"""
 		return self._downlink_frequency
 	
 	@downlink_frequency.setter
 	def downlink_frequency(self, value):
-		"""Change the downlink signal frequency in Hertz
-		arg1: value -- desired downlink signal frequency in Hertz
+		"""
+		Change the downlink signal frequency in Hertz
+		
+		@type  value: pint frequency
+		@param value: desired downlink signal frequency in Hertz
+		
 		"""
 		self._ureg.check('[frequency]')(value)
 		self._downlink_frequency = value
@@ -116,45 +159,69 @@ class LinkBudgetCalculator():
 	# ---------------- target_energy_noise_ratio ----------------
 	@property
 	def target_energy_noise_ratio(self):
-		"""Get the target eb/no in dB
-		ret: target eb/no in dB
+		"""
+		Get the target eb/no in dB
+		
+		@rtype:  number
+		@return: target eb/no in dB
+		
 		"""
 		return self._target_energy_noise_ratio
 	
 	@target_energy_noise_ratio.setter
 	def target_energy_noise_ratio(self, value):
-		"""Change the target eb/no in dB
-		arg1: value -- desired target eb/no in dB
+		"""
+		Change the target eb/no in dB
+		
+		@type  value: number
+		@param value: desired target eb/no in dB
+		
 		"""
 		self._target_energy_noise_ratio = value
 		
 	# ---------------- implementation_loss ----------------
 	@property
 	def implementation_loss(self):
-		"""Get the implementation_loss in dB
-		ret: implementation_loss in dB
+		"""
+		Get the implementation_loss in dB
+		
+		@rtype:  number
+		@return: implementation_loss in dB
+		
 		"""
 		return self._implementation_loss
 	
 	@implementation_loss.setter
 	def implementation_loss(self, value):
-		"""Change the implementation_loss in dB
-		arg1: value -- desired implementation_loss in dB
+		"""
+		Change the implementation_loss in dB
+		
+		@type  value: number
+		@param value: desired implementation_loss in dB
+		
 		"""
 		self._implementation_loss = value
 		
 	# ---------------- transmit_power ----------------
 	@property
 	def transmit_power(self):
-		"""Get the transmit power in Watts
-		ret: transmit power in Watts
+		"""
+		Get the transmit power in Watts
+		
+		@rtype:  pint power
+		@return: transmit power in Watts
+		
 		"""
 		return self._transmit_power
 	
 	@transmit_power.setter
 	def transmit_power(self, value):
-		"""Change the transmit power in Watts
-		arg1: value -- desired transmit power in Watts
+		"""
+		Change the transmit power in Watts
+		
+		@type  value: pint power
+		@param value: desired transmit power in Watts
+		
 		"""
 		self._ureg.check('[power]')(value)
 		self._transmit_power = value
@@ -162,135 +229,207 @@ class LinkBudgetCalculator():
 	# ---------------- transmit_losses ----------------
 	@property
 	def transmit_losses(self):
-		"""Get the transmit_losses in dB
-		ret: transmit_losses in dB
+		"""
+		Get the transmit_losses in dB
+		
+		@rtype:  number
+		@return: transmit_losses in dB
+		
 		"""
 		return self._transmit_losses
 	
 	@transmit_losses.setter
 	def transmit_losses(self, value):
-		"""Change the transmit_losses in dB
-		arg1: value -- desired transmit_losses in dB
+		"""
+		Change the transmit_losses in dB
+		
+		@type  value: number
+		@param value: desired transmit_losses in dB
+		
 		"""
 		self._transmit_losses = value
 		
 	# ---------------- transmit_antenna_gain ----------------
 	@property
 	def transmit_antenna_gain(self):
-		"""Get the transmit_antenna_gain in dB
-		ret: transmit_antenna_gain in dB
+		"""
+		Get the transmit_antenna_gain in dB
+		
+		@rtype:  number
+		@return: transmit_antenna_gain in dB
+		
 		"""
 		return self._transmit_antenna_gain
 	
 	@transmit_antenna_gain.setter
 	def transmit_antenna_gain(self, value):
-		"""Change the transmit_antenna_gain in dB
-		arg1: value -- desired transmit_antenna_gain in dB
+		"""
+		Change the transmit_antenna_gain in dB
+		
+		@type  value: number
+		@param value: desired transmit_antenna_gain in dB
+		
 		"""
 		self._transmit_antenna_gain = value
 		
 	# ---------------- transmit_pointing_loss ----------------
 	@property
 	def transmit_pointing_loss(self):
-		"""Get the transmit_pointing_loss in dB
-		ret: transmit_pointing_loss in dB
+		"""
+		Get the transmit_pointing_loss in dB
+		
+		@rtype:  number
+		@return: transmit_pointing_loss in dB
+		
 		"""
 		return self._transmit_pointing_loss
 	
 	@transmit_pointing_loss.setter
 	def transmit_pointing_loss(self, value):
-		"""Change the transmit_pointing_loss in dB
-		arg1: value -- desired transmit_pointing_loss in dB
+		"""
+		Change the transmit_pointing_loss in dB
+		
+		@type  value: number
+		@param value: desired transmit_pointing_loss in dB
+		
 		"""
 		self._transmit_pointing_loss = value
 		
 	# ---------------- polarization_losses ----------------
 	@property
 	def polarization_losses(self):
-		"""Get the polarization_losses in dB
-		ret: polarization_losses in dB
+		"""
+		Get the polarization_losses in dB
+		
+		@rtype:  number
+		@return: polarization_losses in dB
+		
 		"""
 		return self._polarization_losses
 	
 	@polarization_losses.setter
 	def polarization_losses(self, value):
-		"""Change the polarization_losses in dB
-		arg1: value -- desired polarization_losses in dB
+		"""
+		Change the polarization_losses in dB
+		
+		@type  value: number
+		@param value: desired polarization_losses in dB
+		
 		"""
 		self._polarization_losses = value
 		
 	# ---------------- atmospheric_loss ----------------
 	@property
 	def atmospheric_loss(self):
-		"""Get the atmospheric_loss in dB
-		ret: atmospheric_loss in dB
+		"""
+		Get the atmospheric_loss in dB
+		
+		@rtype:  number
+		@return: atmospheric_loss in dB
+		
 		"""
 		return self._atmospheric_loss
 	
 	@atmospheric_loss.setter
 	def atmospheric_loss(self, value):
-		"""Change the atmospheric_loss in dB
-		arg1: value -- desired atmospheric_loss in dB
+		"""
+		Change the atmospheric_loss in dB
+		
+		@type  value: number
+		@param value: desired atmospheric_loss in dB
+		
 		"""
 		self._atmospheric_loss = value
 		
 	# ---------------- receive_antenna_gain ----------------
 	@property
 	def receive_antenna_gain(self):
-		"""Get the receive_antenna_gain in dB
-		ret: receive_antenna_gain in dB
+		"""
+		Get the receive_antenna_gain in dB
+		
+		@rtype:  number
+		@return: receive_antenna_gain in dB
+		
 		"""
 		return self._receive_antenna_gain
 	
 	@receive_antenna_gain.setter
 	def receive_antenna_gain(self, value):
-		"""Change the receive_antenna_gain in dB
-		arg1: value -- desired receive_antenna_gain in dB
+		"""
+		Change the receive_antenna_gain in dB
+		
+		@type  value: number
+		@param value: desired receive_antenna_gain in dB
+		
 		"""
 		self._receive_antenna_gain = value
 		
 	# ---------------- receiving_pointing_loss ----------------
 	@property
 	def receiving_pointing_loss(self):
-		"""Get the receiving_pointing_loss in dB
-		ret: receiving_pointing_loss in dB
+		"""
+		Get the receiving_pointing_loss in dB
+		
+		@rtype:  number
+		@return: receiving_pointing_loss in dB
+		
 		"""
 		return self._receiving_pointing_loss
 	
 	@receiving_pointing_loss.setter
 	def receiving_pointing_loss(self, value):
-		"""Change the receiving_pointing_loss in dB
-		arg1: value -- desired receiving_pointing_loss in dB
+		"""
+		Change the receiving_pointing_loss in dB
+		
+		@type  value: number
+		@param value: desired receiving_pointing_loss in dB
+		
 		"""
 		self._receiving_pointing_loss = value
 		
 	# ---------------- system_noise_figure ----------------
 	@property
 	def system_noise_figure(self):
-		"""Get the system_noise_figure in dB
-		ret: system_noise_figure in dB
+		"""
+		Get the system_noise_figure in dB
+		
+		@rtype:  number
+		@return: system_noise_figure in dB
+		
 		"""
 		return self._system_noise_figure
 	
 	@system_noise_figure.setter
 	def system_noise_figure(self, value):
-		"""Change the system_noise_figure in dB
-		arg1: value -- desired system_noise_figure in dB
+		"""
+		Change the system_noise_figure in dB
+		
+		@type  value: number
+		@param value: desired system_noise_figure in dB
+		
 		"""
 		self._system_noise_figure = value
 		
 	# ---------------- noise_bandwidth ----------------
 	@property
 	def noise_bandwidth(self):
-		"""Get the noise_bandwidth in Hertz
-		ret: noise_bandwidth in Hertz
+		"""
+		Get the noise_bandwidth in Hertz
+		
+		@rtype:  pint frequency
+		@return: noise_bandwidth in Hertz
+		
 		"""
 		return self._noise_bandwidth
 	
 	@noise_bandwidth.setter
 	def noise_bandwidth(self, value):
-		"""Change the noise_bandwidth in Hertz
-		arg1: value -- desired noise_bandwidth in Hertz
+		"""
+		Change the noise_bandwidth in Hertz
+		
+		@type  value: pint frequency
+		@param value: desired noise_bandwidth in Hertz
+		
 		"""
 		self._ureg.check('[frequency]')(value)
 		self._noise_bandwidth = value
@@ -302,94 +441,146 @@ class LinkBudgetCalculator():
 	# ---------------- downlink_wavelength ----------------
 	@property
 	def downlink_wavelength(self):
-		"""Get the downlink_wavelength in meters
-		ret: downlink_wavelength in meters
+		"""
+		Get the downlink_wavelength in meters
+		
+		@rtype:  pint length
+		@return: downlink_wavelength in meters
+		
 		"""
 		return self._downlink_wavelength
 		
 	# ---------------- link_distance ----------------
 	@property
 	def link_distance(self):
-		"""Get the link_distance in meters
-		ret: link_distance in meters
+		"""
+		Get the link_distance in meters
+		
+		@rtype:  pint length
+		@return: link_distance in meters
+		
 		"""
 		return self._link_distance
 		
 	# ---------------- required_ebno ----------------
 	@property
 	def required_ebno(self):
-		"""Get the required_ebno in dB
-		ret: required_ebno in dB
+		"""
+		Get the required_ebno in dB
+		
+		@rtype:  number
+		@return: required_ebno in dB
+		
 		"""
 		return self._required_ebno
 		
 	# ---------------- transmit_power_dBm ----------------
 	@property
 	def transmit_power_dBm(self):
-		"""Get the transmit_power_dBm in dBm
-		ret: transmit_power_dBm in dBm
+		"""
+		Get the transmit_power_dBm in dBm
+		
+		@rtype:  number
+		@return: transmit_power_dBm in dBm
+		
 		"""
 		return self._transmit_power_dBm
 		
 	# ---------------- transmit_eirp ----------------
 	@property
 	def transmit_eirp(self):
-		"""Get the transmit_eirp in dBm
-		ret: transmit_eirp in dBm
+		"""
+		Get the transmit_eirp in dBm
+		
+		@rtype:  number
+		@return: transmit_eirp in dBm
+		
 		"""
 		return self._transmit_eirp
 		
 	# ---------------- downlink_path_loss ----------------
 	@property
 	def downlink_path_loss(self):
-		"""Get the downlink_path_loss in dB
-		ret: downlink_path_loss in dB
+		"""
+		Get the downlink_path_loss in dB
+		
+		@rtype:  number
+		@return: downlink_path_loss in dB
+		
 		"""
 		return self._downlink_path_loss
 		
 	# ---------------- received_power ----------------
 	@property
 	def received_power(self):
-		"""Get the received_power in dBm
-		ret: received_power in dBm
+		"""
+		Get the received_power in dBm
+		
+		@rtype:  number
+		@return: received_power in dBm
+		
 		"""
 		return self._received_power
 		
 	# ---------------- minimum_detectable_signal ----------------
 	@property
 	def minimum_detectable_signal(self):
-		"""Get the mds in dBm
-		ret: mds in dBm
+		"""
+		Get the mds in dBm
+		
+		@rtype:  number
+		@return: mds in dBm
+		
 		"""
 		return self._minimum_detectable_signal
 		
 	# ---------------- energy_noise_ratio ----------------
 	@property
 	def energy_noise_ratio(self):
-		"""Get the energy_noise_ratio in dB
-		ret: energy_noise_ratio in dB
+		"""
+		Get the energy_noise_ratio in dB
+		
+		@rtype:  number
+		@return: energy_noise_ratio in dB
+		
 		"""
 		return self._energy_noise_ratio
 		
 	# ---------------- link_margin ----------------
 	@property
 	def link_margin(self):
-		"""Get the link_margin in dB
-		ret: link_margin in dB
+		"""
+		Get the link_margin in dB
+		
+		@rtype:  number
+		@return: link_margin in dB
+		
 		"""
 		return self._link_margin
 	
 	@property
 	def is_valid(self):
-		"""Get the is_valid flag to determine if the run() function
+		"""
+		Get the is_valid flag to determine if the run() function
 		successfully calculated a link margin
+		
+		@rtype:  bool
+		@return: validity of output variables
+		
 		"""
 		return self._is_valid
 	
+	# --------------------------------------------------
+	# ----------------    functions     ----------------
+	# --------------------------------------------------
+	
 	def run(self):
-		"""Run function to perform calculations necessary to determine outputs
+		"""
+		Run function to perform calculations necessary to determine outputs
 		of link budget calculation
+		
 		is_valid will result in True if calculations were successful
+		
 	`	"""
 		# set is_valid to false every time a run is initiated
 		self._is_valid = False
@@ -411,7 +602,7 @@ class LinkBudgetCalculator():
 		#print('link_distance: {}'.format(self._link_distance))
 		
 		# Transmit Power dBm
-		self._transmit_power_dBm = power_to_dBm(self._ureg, self._transmit_power)
+		self._transmit_power_dBm = self.power_to_dBm(self._transmit_power)
 		
 		# DEBUG
 		#print('Tx power dBm: {}'.format(self._transmit_power_dBm))
@@ -460,8 +651,34 @@ class LinkBudgetCalculator():
 		
 		self._is_valid = True
 	
+	def power_to_dBm(self, val_power):
+		"""
+		Output the dBm value of a pint power input
 		
+		@type  val_power: pint power
+		@param val_power: value to convert to raw dBm
+		
+		@rtype:  number
+		@return: result of conversion in dBm
+		"""
+		self._ureg.check('[power]')(val_power)
+		val_mW = val_power.to(self._ureg.mW)
+		val_power_dBm = 10 * math.log10(val_mW.magnitude)
+		return val_power_dBm
 	
+	
+	def dBm_to_string(self, val_dBm):
+		"""
+		Return a string with the formatted dBm value
+		
+		@type  val_dBm: number
+		@param val_dBm: value to add in dBm
+		
+		@rtype:  string
+		@return: string representation of value in dBm
+		
+		"""
+		return '{} dBm'.format(val_dBm)
 	
 	
 	

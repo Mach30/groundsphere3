@@ -8,7 +8,8 @@ class ConvertTest(unittest.TestCase):
 		self.ureg = pint.UnitRegistry()
 
 	def test_Conversion(self):
-		"""Test if power_to_dBm function can convert values of power
+		"""
+		Test if power_to_dBm function can convert values of power
 		in W or mw to correct values of dBm
 		"""
 		x_1 = 1000 * self.ureg.mW
@@ -20,7 +21,8 @@ class ConvertTest(unittest.TestCase):
 		self.assertEqual(y_1, y_2)
 
 	def test_Addition(self):
-		"""Test if addition between power and dBm type is successful
+		"""
+		Test if addition between power and dBm type is successful
 		"""
 		x = 1000 * self.ureg.mW
 		r = 30 #dBm
@@ -28,7 +30,8 @@ class ConvertTest(unittest.TestCase):
 		self.assertEqual(z, 60)
 
 	def test_Error_Convert(self):
-		"""Test if attempt at conversion with incorrect unit
+		"""
+		Test if attempt at conversion with incorrect unit
 		dimension results in exception
 		"""
 		x = 10 * self.ureg.meter
@@ -37,7 +40,8 @@ class ConvertTest(unittest.TestCase):
 		self.assertTrue('Cannot convert' in str(context.exception))
 		
 	def test_Error_Addition(self):
-		"""Test if attempt at conversion with incorrect unit
+		"""
+		Test if attempt at conversion with incorrect unit
 		dimension results in exception
 		"""
 		x = 10 * self.ureg.meter
@@ -46,7 +50,8 @@ class ConvertTest(unittest.TestCase):
 		self.assertTrue('Cannot convert' in str(context.exception))
 	
 	def test_Negative_Conversion(self):
-		"""Test if powers below 0 dBm successfully convert to
+		"""
+		Test if powers below 0 dBm successfully convert to
 		negative dBm values
 		"""
 		x = 10 * self.ureg.uW
@@ -54,7 +59,8 @@ class ConvertTest(unittest.TestCase):
 		self.assertEqual(y, -20)
 
 	def test_Negative_Addition(self):
-		"""Test if addition with powers below 0 dBm successfully add
+		"""
+		Test if addition with powers below 0 dBm successfully add
 		"""
 		x_1 = 30 #dBm -- 30 dBm = 1 W
 		x_2 = 10 * self.ureg.uW
@@ -62,7 +68,8 @@ class ConvertTest(unittest.TestCase):
 		self.assertEqual(y, 10)
 	
 	def test_To_String(self):
-		"""Test if conversion to string is successful
+		"""
+		Test if conversion to string is successful
 		"""
 		x = 10 * self.ureg.W
 		y = Convert_dBm.dBm_to_string(Convert_dBm.power_to_dBm(self.ureg, x))
