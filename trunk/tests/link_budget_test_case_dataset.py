@@ -3,6 +3,13 @@ from pint import UnitRegistry
 class LinkBudgetTestCaseDataset():
 
 	def __init__(self, ureg):
+		"""
+		Constructor for GS Mk3 link budget test case dataset
+		
+		The constructor will initialize values of multiple test cases described
+		in the documentation.
+		
+		"""
 		self._ureg = ureg
 		
 		## populatng data without using the LinkBudget class so that any errors with the class,

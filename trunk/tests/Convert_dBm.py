@@ -2,7 +2,8 @@ import pint
 from math import log10
 
 def power_to_dBm(ureg, val_power):
-	"""Output the dBm value of a pint power input
+	"""
+	Output the dBm value of a pint power input
 	arg1: 	ureg 	  -- unit registry to use for conversion
 	arg2: 	val_power -- value to convert to raw dBm
 						 throws an error if this value is not pint power
