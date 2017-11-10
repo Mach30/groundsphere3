@@ -679,10 +679,40 @@ class LinkBudgetCalculator():
         
         """
         return '{} dBm'.format(val_dBm)
-    
-    
-    
-    
+
+    def __str__(self):
+        val = ' ---------------- inputs ---------------- \n'
+        val = val + 'Ground Station Altitude:\t {}\n'.format(str(self._altitude_ground_station))
+        val = val + 'Orbit Elevation Angle:\t\t {}\n'.format(str(self._orbit_elevation_angle))
+        val = val + 'Satellite Altitude:\t\t {}\n'.format(str(self._altitude_satellite))
+        val = val + 'Downlink Frequency:\t\t {}\n'.format(str(self._downlink_frequency))
+        val = val + 'Target Eb/N0:\t\t\t {} dB\n'.format(str(self._target_energy_noise_ratio))
+        val = val + 'Implementation Loss:\t\t {} dB\n'.format(str(self._implementation_loss))
+        val = val + 'Transmit Power:\t\t\t {}\n'.format(str(self._transmit_power))
+        val = val + 'Transmit Losses:\t\t {} dB\n'.format(str(self._transmit_losses))
+        val = val + 'Transmit Antenna Gain:\t\t {} dB\n'.format(str(self._transmit_antenna_gain))
+        val = val + 'Transmit Pointing Loss:\t\t {} dB\n'.format(str(self._transmit_pointing_loss))
+        val = val + 'Polarization Losses:\t\t {} dB\n'.format(str(self._polarization_losses))
+        val = val + 'Receive Antenna Gain:\t\t {} dB\n'.format(str(self._receive_antenna_gain))
+        val = val + 'Receive Pointing Loss:\t\t {} dB\n'.format(str(self._receiving_pointing_loss))
+        val = val + 'System Noise Figure:\t\t {} dB\n'.format(str(self._system_noise_figure))
+        val = val + 'Noise Bandwidth:\t\t {}\n'.format(str(self._noise_bandwidth))
+        val = val + '---------------- intermediates ----------------\n'
+        val = val + 'Downlink Wavelength:\t\t {}\n'.format(str(self._downlink_wavelength))
+        val = val + 'Link Distance:\t\t\t {}\n'.format(str(self._link_distance))
+        val = val + 'Required Eb/N0:\t\t\t {}\n'.format(str(self._required_ebno))
+        val = val + 'Transmit Power (dBm):\t\t {} dBm\n'.format(str(self._transmit_power_dBm))
+        val = val + 'Transmit EIRP:\t\t\t {} dBm\n'.format(str(self._transmit_eirp))
+        val = val + 'Downlink Path Link:\t\t {} dB\n'.format(str(self._downlink_path_loss))
+        val = val + '---------------- outputs ----------------\n'
+        val = val + 'Receieved Power:\t\t {} dBm\n'.format(str(self._received_power))
+        val = val + 'Minimum Detectable Signal:\t {} dBm\n'.format(str(self._minimum_detectable_signal))
+        val = val + 'Energy to Noise Ratio:\t\t {} dB\n'.format(str(self._energy_noise_ratio))
+        val = val + 'Link Margin:\t\t\t {} dBm\n'.format(str(self._link_distance))
+        val = val + '\n'
+        val = val + 'Valid Calculation:\t\t {}\n'.format(str(self._is_valid))
+		
+        return val
     
     
     
