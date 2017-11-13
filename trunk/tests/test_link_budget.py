@@ -2,12 +2,14 @@ import unittest
 import pint
 from link_budget_test_case_dataset import LinkBudgetTestCaseDataset
 
+from lib.calculator import LinkBudgetCalculator
+
 # TODO -- remove this
 # bad hacky way to include the calculator...
 # must be modified to use __init__.py
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
-from link_budget_calculator import LinkBudgetCalculator
+#import sys, os
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+#from link_budget_calculator import LinkBudgetCalculator
 
 class TestLinkBudget(unittest.TestCase):
 

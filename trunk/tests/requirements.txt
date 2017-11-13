@@ -1,5 +1,0 @@
-Python Version x.x
-
-Required Python Libraries:
-	pint
-
