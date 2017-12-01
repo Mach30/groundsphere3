@@ -126,6 +126,6 @@ class TestLinkBudget(unittest.TestCase):
         self.assertTrue(abs(lb_calc.minimum_detectable_signal - tc_data.minimum_detectable_signal) < 1)
         self.assertTrue(abs(lb_calc.energy_noise_ratio - tc_data.energy_noise_ratio) < 1)
         self.assertTrue(abs(lb_calc.link_margin - tc_data.link_margin) < 1)
-
+		
 if __name__ == '__main__':
     unittest.main()

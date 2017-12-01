@@ -619,7 +619,7 @@ class LinkBudgetCalculator():
         # DEBUG
         #print('Path Loss : {}'.format(self._downlink_path_loss))
         
-        # Required Eb/N0 dB)
+        # Required Eb/N0 dB
         self._required_ebno = self._target_energy_noise_ratio - self._implementation_loss
         
         # DEBUG
@@ -629,25 +629,25 @@ class LinkBudgetCalculator():
         self._received_power = self._transmit_eirp + self._downlink_path_loss + self._polarization_losses + self._atmospheric_loss + self._receive_antenna_gain + self._receiving_pointing_loss
         
         # DEBUG
-        #print('Rx Power : {}'.format(self._received_power))
+        print('Rx Power : {}'.format(self._received_power))
         
         # MDS dBm
         self._minimum_detectable_signal = -174 + 10 * math.log10(self._noise_bandwidth.to('hertz').magnitude) + self._system_noise_figure
         
         # DEBUG
-        #print('MDS : {}'.format(self._minimum_detectable_signal))
+        print('MDS : {}'.format(self._minimum_detectable_signal))
         
         # Eb/N0 Receieved dB
         self._energy_noise_ratio = self._received_power - self._minimum_detectable_signal
         
         # DEBUG
-        #print('Eb/N0 : {}'.format(self._energy_noise_ratio))
+        print('Eb/N0 : {}'.format(self._energy_noise_ratio))
     
         # Link Margin dB
         self._link_margin = self._energy_noise_ratio - self._required_ebno
         
         # DEBUG
-        #print('Margin : {}'.format(self._link_margin))
+        print('Margin : {}'.format(self._link_margin))
         
         self._is_valid = True
     
