@@ -38,7 +38,7 @@ class LinkBudgetTestCaseDataset():
         data.transmit_antenna_gain = 4.0                    # dB
         data.transmit_pointing_loss = -3.0                  # dB
         data.polarization_losses = 0.0                      # dB
-        data.atmospheric_loss = -0.75                        # dB
+        data.atmospheric_loss = -0.75                       # dB
         data.receive_antenna_gain = 5.4                     # dB
         data.receiving_pointing_loss = -3.0                 # dB 
         data.system_noise_figure = 5.0                      # dB
