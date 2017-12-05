@@ -582,6 +582,9 @@ class LinkBudgetCalculator():
         is_valid will result in True if calculations were successful
         
     `    """
+	    # DEBUG
+        print('----new----')
+
         # set is_valid to false every time a run is initiated
         self._is_valid = False
     
@@ -592,14 +595,17 @@ class LinkBudgetCalculator():
         #print('wavelength: {}'.format(self._downlink_wavelength))
         
         # Link Distance m
-        orbit_elevation_angle_rad = math.radians(self._orbit_elevation_angle.magnitude)
-        beta = orbit_elevation_angle_rad + (math.pi / 2)
-        alpha = math.asin(((self._altitude_ground_station + self.Re) / (self._altitude_satellite + self.Re)) * math.sin(beta))
-        theta = math.pi - alpha - beta
-        self._link_distance = math.sin(theta) * (self._altitude_satellite + self.Re) / math.sin(beta)
+        if (self._orbit_elevation_angle.magnitude == 90):
+            self._link_distance = self._altitude_satellite - self._altitude_ground_station
+        else:
+            orbit_elevation_angle_rad = math.radians(self._orbit_elevation_angle.magnitude)
+            beta = orbit_elevation_angle_rad + (math.pi / 2)
+            alpha = math.asin(((self._altitude_ground_station + self.Re) / (self._altitude_satellite + self.Re)) * math.sin(beta))
+            theta = math.pi - alpha - beta
+            self._link_distance = math.sin(theta) * (self._altitude_satellite + self.Re) / math.sin(beta)
         
         # DEBUG
-        #print('link_distance: {}'.format(self._link_distance))
+        print('link_distance: {}'.format(self._link_distance))
         
         # Transmit Power dBm
         self._transmit_power_dBm = self.power_to_dBm(self._transmit_power)
@@ -611,7 +617,7 @@ class LinkBudgetCalculator():
         self._transmit_eirp = self._transmit_power_dBm + self._transmit_losses + self._transmit_antenna_gain + self._transmit_pointing_loss
         
         # DEBUG
-        #print('Tx EIRP: {}'.format(self._transmit_eirp))
+        print('Tx EIRP: {}'.format(self._transmit_eirp))
     
         # Downlink Path Loss dB
         self._downlink_path_loss = -20 * math.log10(4 * math.pi * self._link_distance / self._downlink_wavelength)
@@ -711,7 +717,7 @@ class LinkBudgetCalculator():
         val = val + 'Link Margin:\t\t\t {} dBm\n'.format(str(self._link_distance))
         val = val + '\n'
         val = val + 'Valid Calculation:\t\t {}\n'.format(str(self._is_valid))
-		
+        
         return val
     
     

@@ -5,7 +5,7 @@ from lib.calculator import LinkBudgetCalculator
 
 class TestLinkBudget(unittest.TestCase):
 
-    NUM_TEST_CASES = 1
+    NUM_TEST_CASES = 7
 
     def setUp(self):
         self.ureg = pint.UnitRegistry()
@@ -22,6 +22,24 @@ class TestLinkBudget(unittest.TestCase):
 
     def test_lb1(self):
         self._test_dataset_item(0)
+		
+    def test_lb2(self):
+        self._test_dataset_item(1)
+		
+    def test_lb3(self):
+        self._test_dataset_item(2)
+		
+    def test_lb4(self):
+        self._test_dataset_item(3)
+		
+    def test_lb5(self):
+        self._test_dataset_item(4)
+		
+    def test_lb6(self):
+        self._test_dataset_item(5)
+		
+    def test_lb7(self):
+        self._test_dataset_item(6)
     
     def test_default_init(self):
         lb_calc = LinkBudgetCalculator(self.ureg)
@@ -125,7 +143,7 @@ class TestLinkBudget(unittest.TestCase):
         self.assertTrue(abs(lb_calc.received_power - tc_data.received_power) < 10)
         self.assertTrue(abs(lb_calc.minimum_detectable_signal - tc_data.minimum_detectable_signal) < 1)
         self.assertTrue(abs(lb_calc.energy_noise_ratio - tc_data.energy_noise_ratio) < 1)
-        self.assertTrue(abs(lb_calc.link_margin - tc_data.link_margin) < 1)
+        self.assertTrue(abs(lb_calc.link_margin - tc_data.link_margin) < 0.1)
 		
 if __name__ == '__main__':
     unittest.main()
