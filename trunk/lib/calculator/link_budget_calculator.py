@@ -1,5 +1,7 @@
 import pint
 import math
+import logging
+import warnings
 
 class LinkBudgetCalculator():
     """
@@ -582,17 +584,49 @@ class LinkBudgetCalculator():
         is_valid will result in True if calculations were successful
         
     `    """
-	    # DEBUG
-        print('----new----')
-
         # set is_valid to false every time a run is initiated
         self._is_valid = False
+        
+        # raise exceptions for any errors
+        if (self._downlink_frequency.magnitude <= 0):
+            raise ValueError('Invalid Frequency')
+        if (self._altitude_satellite.magnitude <= 0):
+            raise ValueError('Invalid Satellite Altitude')
+        if (self._orbit_elevation_angle.magnitude <= 0):
+            raise ValueError('Invalid elevation angle')
+        if (self._system_noise_figure < 0):
+            raise ValueError('System Noise Figure is negative')
+        if (self._atmospheric_loss > 0):
+            raise ValueError('Atmospheric Loss is positive')
+        if (self._implementation_loss > 0):
+            raise ValueError('Implementation loss is positive')        
+        if (self._polarization_losses > 0):
+            raise ValueError('Polarization Loss is positive')
+        if (self._receiving_pointing_loss > 0):
+            raise ValueError('Receive Pointing Loss is positive')
+        if (self._transmit_losses > 0):
+            raise ValueError('Transmit Loss is positive')
+        if (self._transmit_pointing_loss > 0):
+            raise ValueError('Transmit Pointing Loss is positive')
+        if (self._noise_bandwidth.magnitude <= 0):
+            raise ValueError('Noise Bandwidth is negative')
+        if (self._system_noise_figure < 0):
+            raise ValueError('System Noise Figure is negative')
+    
+        # warn
+        if (self._transmit_antenna_gain < 0):
+            warnings.warn('Transmit Antenna Gain is negative')
+        if (self._receive_antenna_gain < 0):
+            warnings.warn('Receive Antenna Gain is negative')
     
         # Downlink Wavelength m
         self._downlink_wavelength = self.c / self._downlink_frequency.to('1 / second')
         
         # DEBUG
-        #print('wavelength: {}'.format(self._downlink_wavelength))
+        logger = logging.getLogger()
+        logger.setLevel(logging.INFO)
+        logging.debug(' --- new item ---')
+        logging.debug('wavelength: {}'.format(self._downlink_wavelength))
         
         # Link Distance m
         if (self._orbit_elevation_angle.magnitude == 90):
@@ -605,55 +639,55 @@ class LinkBudgetCalculator():
             self._link_distance = math.sin(theta) * (self._altitude_satellite + self.Re) / math.sin(beta)
         
         # DEBUG
-        print('link_distance: {}'.format(self._link_distance))
+        logging.debug('link_distance: {}'.format(self._link_distance))
         
         # Transmit Power dBm
         self._transmit_power_dBm = self.power_to_dBm(self._transmit_power)
         
         # DEBUG
-        #print('Tx power dBm: {}'.format(self._transmit_power_dBm))
+        #logging.debug('Tx power dBm: {}'.format(self._transmit_power_dBm))
         
         # Transmit EIRP dBm
         self._transmit_eirp = self._transmit_power_dBm + self._transmit_losses + self._transmit_antenna_gain + self._transmit_pointing_loss
         
         # DEBUG
-        print('Tx EIRP: {}'.format(self._transmit_eirp))
+        logging.debug('Tx EIRP: {}'.format(self._transmit_eirp))
     
         # Downlink Path Loss dB
         self._downlink_path_loss = -20 * math.log10(4 * math.pi * self._link_distance / self._downlink_wavelength)
         
         # DEBUG
-        #print('Path Loss : {}'.format(self._downlink_path_loss))
+        #logging.debug('Path Loss : {}'.format(self._downlink_path_loss))
         
         # Required Eb/N0 dB
         self._required_ebno = self._target_energy_noise_ratio - self._implementation_loss
         
         # DEBUG
-        #print('Req Eb/N0 : {}'.format(self._required_ebno))
+        #logging.debug('Req Eb/N0 : {}'.format(self._required_ebno))
         
         # Recieved Power dBm
         self._received_power = self._transmit_eirp + self._downlink_path_loss + self._polarization_losses + self._atmospheric_loss + self._receive_antenna_gain + self._receiving_pointing_loss
         
         # DEBUG
-        print('Rx Power : {}'.format(self._received_power))
+        logging.debug('Rx Power : {}'.format(self._received_power))
         
         # MDS dBm
         self._minimum_detectable_signal = -174 + 10 * math.log10(self._noise_bandwidth.to('hertz').magnitude) + self._system_noise_figure
         
         # DEBUG
-        print('MDS : {}'.format(self._minimum_detectable_signal))
+        logging.debug('MDS : {}'.format(self._minimum_detectable_signal))
         
         # Eb/N0 Receieved dB
         self._energy_noise_ratio = self._received_power - self._minimum_detectable_signal
         
         # DEBUG
-        print('Eb/N0 : {}'.format(self._energy_noise_ratio))
+        logging.debug('Eb/N0 : {}'.format(self._energy_noise_ratio))
     
         # Link Margin dB
         self._link_margin = self._energy_noise_ratio - self._required_ebno
         
         # DEBUG
-        print('Margin : {}'.format(self._link_margin))
+        logging.debug('Margin : {}'.format(self._link_margin))
         
         self._is_valid = True
     

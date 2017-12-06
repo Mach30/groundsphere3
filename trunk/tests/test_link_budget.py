@@ -5,7 +5,7 @@ from lib.calculator import LinkBudgetCalculator
 
 class TestLinkBudget(unittest.TestCase):
 
-    NUM_TEST_CASES = 7
+    NUM_TEST_CASES = 17
 
     def setUp(self):
         self.ureg = pint.UnitRegistry()
@@ -40,6 +40,37 @@ class TestLinkBudget(unittest.TestCase):
 		
     def test_lb7(self):
         self._test_dataset_item(6)
+		
+    def test_lb8(self):
+        self._test_dataset_item(7)
+		
+    def test_lb9(self):
+        self._test_dataset_item(8)
+		
+    def test_lb10(self):
+        self._test_dataset_item(9)
+		
+    def test_lb11(self):
+        self._test_dataset_item(10)
+		
+    def test_lb12(self):
+        self._test_dataset_item(11)
+		
+    def test_lb13(self):
+        self._test_dataset_item(12)
+		
+    def test_lb14(self):
+        self.assertWarns(self._test_dataset_item(13))
+		
+    def test_lb15(self):
+		# use this for catching errors
+        self.assertRaises(self._test_dataset_item(14))
+		
+    def test_lb16(self):
+        self._test_dataset_item(15)
+		
+    def test_lb17(self):
+        self._test_dataset_item(16)
     
     def test_default_init(self):
         lb_calc = LinkBudgetCalculator(self.ureg)
@@ -47,7 +78,7 @@ class TestLinkBudget(unittest.TestCase):
         self.assertEqual(lb_calc.altitude_ground_station, 0 * self.ureg.meter)
         # TODO: check all values
 
-    def _test_dataset_item(self, item_number):
+    def _test_dataset_item(self, item_number):        
         # get the test case data
         tc_data = self.test_case_dataset[item_number]
 
@@ -134,16 +165,19 @@ class TestLinkBudget(unittest.TestCase):
         self.assertEqual(lb_calc.is_valid, True)
         
         # test for equality
-        self.assertTrue(abs(lb_calc.downlink_wavelength - tc_data.downlink_wavelength) < 0.001 * self.ureg.meter)
-        self.assertTrue(abs(lb_calc.link_distance - tc_data.link_distance) < 100 * self.ureg.kilometer)
-        self.assertTrue(abs(lb_calc.required_ebno - tc_data.required_ebno) < 0.1)
-        self.assertTrue(abs(lb_calc.transmit_power_dBm - tc_data.transmit_power_dBm) < 0.1)
-        self.assertTrue(abs(lb_calc.transmit_eirp - tc_data.transmit_eirp) < 0.1)
-        self.assertTrue(abs(lb_calc.downlink_path_loss - tc_data.downlink_path_loss) < 10)
-        self.assertTrue(abs(lb_calc.received_power - tc_data.received_power) < 10)
-        self.assertTrue(abs(lb_calc.minimum_detectable_signal - tc_data.minimum_detectable_signal) < 1)
-        self.assertTrue(abs(lb_calc.energy_noise_ratio - tc_data.energy_noise_ratio) < 1)
-        self.assertTrue(abs(lb_calc.link_margin - tc_data.link_margin) < 0.1)
+		
+		# TODO -- change these to correct tolerance assertion
+		
+        self.assertAlmostEqual(lb_calc.downlink_wavelength.magnitude, tc_data.downlink_wavelength.magnitude, 3)
+        self.assertAlmostEqual(lb_calc.link_distance.magnitude, tc_data.link_distance.magnitude, -2)
+        self.assertAlmostEqual(lb_calc.required_ebno, tc_data.required_ebno, 1)
+        self.assertAlmostEqual(lb_calc.transmit_power_dBm, tc_data.transmit_power_dBm, 1)
+        self.assertAlmostEqual(lb_calc.transmit_eirp, tc_data.transmit_eirp, 1)
+        self.assertAlmostEqual(lb_calc.downlink_path_loss, tc_data.downlink_path_loss, -1)
+        self.assertAlmostEqual(lb_calc.received_power, tc_data.received_power, -2)
+        self.assertAlmostEqual(lb_calc.minimum_detectable_signal, tc_data.minimum_detectable_signal, 0)
+        self.assertAlmostEqual(lb_calc.energy_noise_ratio, tc_data.energy_noise_ratio, 0)
+        self.assertAlmostEqual(lb_calc.link_margin, tc_data.link_margin, 1)
 		
 if __name__ == '__main__':
     unittest.main()
