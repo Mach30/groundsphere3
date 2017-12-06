@@ -148,7 +148,7 @@ class LinkBudgetTestCaseDataset():
         # ------------------------------ fourth test case ---------------------------------------
 		# ---------------------------------------------------------------------------------------
         data = self._Data()
-        data.name = 'Ground Sphere Mk. 3 High Elevation Angle'
+        data.name = 'Ground Sphere Mk. 3 High Gain Antenna with Tracking'
         data.description = 'Modified link budget for the groundsphere Mk 3 setup with high elevation angle. Includes      ' \
             'values for eggbeater antenna, NOAA 19 weather satellite, inclined orbit, and ' \
             '137.5 MHz APT data. Used as target link budget calculation.' \
@@ -190,7 +190,7 @@ class LinkBudgetTestCaseDataset():
         # ------------------------------ fifth test case ---------------------------------------
 		# ---------------------------------------------------------------------------------------
         data = self._Data()
-        data.name = 'Ground Sphere Mk. 3 High Elevation Angle'
+        data.name = 'Ground Sphere Mk. 3 High Gain antenna no tracking'
         data.description = 'Modified link budget for the groundsphere Mk 3 setup with high elevation angle. Includes      ' \
             'values for eggbeater antenna, NOAA 19 weather satellite, inclined orbit, and ' \
             '137.5 MHz APT data. Used as target link budget calculation.' \
@@ -224,7 +224,7 @@ class LinkBudgetTestCaseDataset():
         data.received_power = -110                          # dBm
         data.minimum_detectable_signal = -124               # dBm
         data.energy_noise_ratio = 18                        # dB
-        data.link_margin = -3                               # dB
+        data.link_margin = -3.1                             # dB
         # add it to the data table
         self._datatable.append(data)
 		
@@ -232,7 +232,7 @@ class LinkBudgetTestCaseDataset():
         # ------------------------------ sixth test case ---------------------------------------
 		# ---------------------------------------------------------------------------------------
         data = self._Data()
-        data.name = 'Ground Sphere Mk. 3 High Elevation Angle'
+        data.name = 'Ground Sphere Mk. 3 Ground Plane Dipole Low Elevation Angle'
         data.description = 'Modified link budget for the groundsphere Mk 3 setup with high elevation angle. Includes      ' \
             'values for eggbeater antenna, NOAA 19 weather satellite, inclined orbit, and ' \
             '137.5 MHz APT data. Used as target link budget calculation.' \
@@ -274,7 +274,7 @@ class LinkBudgetTestCaseDataset():
         # ------------------------------ seventh test case --------------------------------------
 		# ---------------------------------------------------------------------------------------
         data = self._Data()
-        data.name = 'Ground Sphere Mk. 3 High Elevation Angle'
+        data.name = 'Ground Sphere Mk. 3 Ground Plane Dipole High Elevation Angle'
         data.description = 'Modified link budget for the groundsphere Mk 3 setup with high elevation angle. Includes      ' \
             'values for eggbeater antenna, NOAA 19 weather satellite, inclined orbit, and ' \
             '137.5 MHz APT data. Used as target link budget calculation.' \
@@ -382,7 +382,7 @@ class LinkBudgetTestCaseDataset():
         data.system_noise_figure = 3.5                      # dB
         data.noise_bandwidth = 17.0 * ureg.kilohertz        # Hz
         # intermediates
-        data.downlink_wavelength = 2.182 * ureg.meter       # m
+        data.downlink_wavelength = 2.172 * ureg.meter       # m
         data.link_distance = 960 * ureg.kilometer           # km
         data.required_ebno = 10.0                           # dB
         data.transmit_power_dBm = 40.0                      # dBm
@@ -583,12 +583,12 @@ class LinkBudgetTestCaseDataset():
         data.implementation_loss = -1.0                     # dB
         data.transmit_power = 5.0 * ureg.watt               # Watt
         data.transmit_losses = -1.0                         # dB 
-        data.transmit_antenna_gain = -4.0                    # dB
-        data.transmit_pointing_loss = 0.0                  # dB
-        data.polarization_losses = 0.0                     # dB
+        data.transmit_antenna_gain = -4.0                   # dB
+        data.transmit_pointing_loss = 0.0                   # dB
+        data.polarization_losses = 0.0                      # dB
         data.atmospheric_loss = 0.0                         # dB
-        data.receive_antenna_gain = -5.4                     # dB
-        data.receiving_pointing_loss = 0                # dB 
+        data.receive_antenna_gain = -5.4                    # dB
+        data.receiving_pointing_loss = 0                    # dB 
         data.system_noise_figure = 5.0                      # dB
         data.noise_bandwidth = 34.0 * ureg.kilohertz        # Hz
         # intermediates
@@ -668,11 +668,11 @@ class LinkBudgetTestCaseDataset():
         data.transmit_power = 5.0 * ureg.watt               # Watt
         data.transmit_losses = -1.0                         # dB 
         data.transmit_antenna_gain = 4.0                    # dB
-        data.transmit_pointing_loss = 0                  # dB
-        data.polarization_losses = 0                     # dB
+        data.transmit_pointing_loss = -3.0                  # dB
+        data.polarization_losses = 0                        # dB
         data.atmospheric_loss = 0.0                         # dB
         data.receive_antenna_gain = 5.4                     # dB
-        data.receiving_pointing_loss = 0                # dB 
+        data.receiving_pointing_loss = 0                    # dB 
         data.system_noise_figure = -5.0                      # dB
         data.noise_bandwidth = 34.0 * ureg.kilohertz        # Hz
         # intermediates
