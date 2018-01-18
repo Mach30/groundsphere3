@@ -64,7 +64,8 @@ class TestLinkBudget(unittest.TestCase):
 		
     def test_lb15(self):
 		# use this for catching errors
-        self.assertRaises(self._test_dataset_item(14))
+        with self.assertRaises(ValueError):
+            self._test_dataset_item(14)
 		
     def test_lb16(self):
         self._test_dataset_item(15)
