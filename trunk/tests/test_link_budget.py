@@ -51,16 +51,19 @@ class TestLinkBudget(unittest.TestCase):
         self._test_dataset_item(9)
 		
     def test_lb11(self):
-        self._test_dataset_item(10)
+        with self.assertRaises(ValueError):
+            self._test_dataset_item(10)
 		
     def test_lb12(self):
-        self._test_dataset_item(11)
+        with self.assertRaises(ValueError):
+            self._test_dataset_item(11)
 		
     def test_lb13(self):
-        self._test_dataset_item(12)
+        with self.assertRaises(ValueError):
+            self._test_dataset_item(12)
 		
     def test_lb14(self):
-        self.assertWarns(self._test_dataset_item(13))
+        self._test_dataset_item(13)
 		
     def test_lb15(self):
 		# use this for catching errors
@@ -68,10 +71,12 @@ class TestLinkBudget(unittest.TestCase):
             self._test_dataset_item(14)
 		
     def test_lb16(self):
-        self._test_dataset_item(15)
+         with self.assertRaises(ValueError):
+            self._test_dataset_item(15)
 		
     def test_lb17(self):
-        self._test_dataset_item(16)
+        with self.assertRaises(ValueError):
+            self._test_dataset_item(16)
     
     def test_default_init(self):
         lb_calc = LinkBudgetCalculator(self.ureg)
