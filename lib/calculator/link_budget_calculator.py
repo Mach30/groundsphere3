@@ -612,12 +612,13 @@ class LinkBudgetCalculator():
             raise ValueError('Noise Bandwidth is negative')
         if (self._system_noise_figure < 0):
             raise ValueError('System Noise Figure is negative')
-    
+
+        # REMOVED
         # warn
-        if (self._transmit_antenna_gain < 0):
-            warnings.warn('Transmit Antenna Gain is negative')
-        if (self._receive_antenna_gain < 0):
-            warnings.warn('Receive Antenna Gain is negative')
+        #if (self._transmit_antenna_gain < 0):
+        #    warnings.warn('Transmit Antenna Gain is negative')
+        #if (self._receive_antenna_gain < 0):
+        #    warnings.warn('Receive Antenna Gain is negative')
     
         # Downlink Wavelength m
         self._downlink_wavelength = self.c / self._downlink_frequency.to('1 / second')

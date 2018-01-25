@@ -303,7 +303,7 @@ class LinkBudgetTestCaseDataset():
         data.required_ebno = 21.0                           # dB
         data.transmit_power_dBm = 37.0                      # dBm
         data.transmit_eirp = 37.0                           # dBm
-        data.downlink_path_loss = -140                      # dB
+        data.downlink_path_loss = -130                      # dB
         # outputs
         data.received_power = -106                          # dBm
         data.minimum_detectable_signal = -124               # dBm
@@ -342,15 +342,15 @@ class LinkBudgetTestCaseDataset():
         # intermediates
         data.downlink_wavelength = 0.685 * ureg.meter       # m
         data.link_distance = 2780 * ureg.kilometer           # km
-        data.required_ebno = 19.0                           # dB
-        data.transmit_power_dBm = 35.8                      # dBm
+        data.required_ebno = 18.0                           # dB
+        data.transmit_power_dBm = 34.8                      # dBm
         data.transmit_eirp = 35.8                           # dBm
         data.downlink_path_loss = -154                      # dB
         # outputs
         data.received_power = -113                          # dBm
         data.minimum_detectable_signal = -131               # dBm
-        data.energy_noise_ratio = 19                        # dB
-        data.link_margin = 1                             # dB
+        data.energy_noise_ratio = 22                        # dB
+        data.link_margin = 3.8                             # dB
         # add it to the data table
         self._datatable.append(data)
         		
@@ -385,14 +385,14 @@ class LinkBudgetTestCaseDataset():
         data.downlink_wavelength = 2.172 * ureg.meter       # m
         data.link_distance = 960 * ureg.kilometer           # km
         data.required_ebno = 10.0                           # dB
-        data.transmit_power_dBm = 40.0                      # dBm
-        data.transmit_eirp = 40.0                           # dBm
+        data.transmit_power_dBm = 37.0                      # dBm
+        data.transmit_eirp = 39.5                           # dBm
         data.downlink_path_loss = -135                      # dB
         # outputs
         data.received_power = -93                          # dBm
         data.minimum_detectable_signal = -128               # dBm
-        data.energy_noise_ratio = 37                        # dB
-        data.link_margin = 27                             # dB
+        data.energy_noise_ratio = 34                        # dB
+        data.link_margin = 24.3                             # dB
         # add it to the data table
         self._datatable.append(data)
         		
@@ -424,17 +424,17 @@ class LinkBudgetTestCaseDataset():
         data.system_noise_figure = 3.0                      # dB
         data.noise_bandwidth = 1023.0 * ureg.kilohertz        # Hz
         # intermediates
-        data.downlink_wavelength = 0.189 * ureg.meter       # m
-        data.link_distance = 27480 * ureg.kilometer           # km
-        data.required_ebno = 9.5                           # dB
+        data.downlink_wavelength = 0.190 * ureg.meter       # m
+        data.link_distance = 20200 * ureg.kilometer           # km
+        data.required_ebno = 25.0                           # dB
         data.transmit_power_dBm = 44.1                      # dBm
-        data.transmit_eirp = 57.1                           # dBm
+        data.transmit_eirp = 56.1                           # dBm
         data.downlink_path_loss = -183                      # dB
         # outputs
         data.received_power = -117                          # dBm
-        data.minimum_detectable_signal = -110              # dBm
-        data.energy_noise_ratio = -7                        # dB
-        data.link_margin = -18                             # dB
+        data.minimum_detectable_signal = -111              # dBm
+        data.energy_noise_ratio = -6                        # dB
+        data.link_margin = -30.5                              # dB
         # add it to the data table
         self._datatable.append(data)
         		
@@ -596,13 +596,13 @@ class LinkBudgetTestCaseDataset():
         data.link_distance = 860 * ureg.kilometer           # km
         data.required_ebno = 21.0                           # dB
         data.transmit_power_dBm = 37.0                      # dBm
-        data.transmit_eirp = 37.0                           # dBm
+        data.transmit_eirp = 32.0                           # dBm
         data.downlink_path_loss = -130                      # dB
         # outputs
         data.received_power = -110                         # dBm
         data.minimum_detectable_signal = -124               # dBm
-        data.energy_noise_ratio = 14                        # dB
-        data.link_margin = -6.6                             # dB
+        data.energy_noise_ratio = 16                        # dB
+        data.link_margin = -4.6                             # dB
         # add it to the data table
         self._datatable.append(data)
         		
