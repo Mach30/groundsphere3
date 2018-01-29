@@ -164,6 +164,9 @@ class TestLinkBudget(unittest.TestCase):
         self.assertEqual(lb_calc.system_noise_figure, tc_data.system_noise_figure)
         self.assertEqual(lb_calc.noise_bandwidth, tc_data.noise_bandwidth)
         
+		# DEBUG
+        lb_calc.is_logging = False
+		
         # run the calculations
         lb_calc.run()
         
@@ -171,9 +174,6 @@ class TestLinkBudget(unittest.TestCase):
         self.assertEqual(lb_calc.is_valid, True)
         
         # test for equality
-		
-		# TODO -- change these to correct tolerance assertion
-		
         self.assertAlmostEqual(lb_calc.downlink_wavelength.magnitude, tc_data.downlink_wavelength.magnitude, 3)
         self.assertAlmostEqual(lb_calc.link_distance.magnitude, tc_data.link_distance.magnitude, -2)
         self.assertAlmostEqual(lb_calc.required_ebno, tc_data.required_ebno, 1)

@@ -56,6 +56,7 @@ class LinkBudgetCalculator():
         self._energy_noise_ratio =        0.0                   # dB
         self._link_margin =               0.0                   # dB
         
+        self._is_logging =                False                 # bool
         self._is_valid =                  False                 # bool
         
         # constants
@@ -560,6 +561,29 @@ class LinkBudgetCalculator():
         """
         return self._link_margin
     
+    # ---------------- other variables ----------------		
+    @property
+    def is_logging(self):
+        """
+        Determines if the current calculator instance should log
+        output to the shell
+        
+        @rtype:  bool
+        @return: current logging status
+        """
+        return self._is_logging
+
+    @is_logging.setter
+    def is_logging(self, value):
+        """
+        Change the logging variable
+        
+        @type  value: bool
+        @param value: desired logging type
+        
+        """
+        self._is_logging = value
+	
     @property
     def is_valid(self):
         """
@@ -612,20 +636,16 @@ class LinkBudgetCalculator():
             raise ValueError('Noise Bandwidth is negative')
         if (self._system_noise_figure < 0):
             raise ValueError('System Noise Figure is negative')
-
-        # REMOVED
-        # warn
-        #if (self._transmit_antenna_gain < 0):
-        #    warnings.warn('Transmit Antenna Gain is negative')
-        #if (self._receive_antenna_gain < 0):
-        #    warnings.warn('Receive Antenna Gain is negative')
     
         # Downlink Wavelength m
         self._downlink_wavelength = self.c / self._downlink_frequency.to('1 / second')
         
         # DEBUG
         logger = logging.getLogger()
-        logger.setLevel(logging.INFO)
+        if self._is_logging:
+            logger.setLevel(logging.DEBUG)
+        else:
+            logger.setLevel(logging.INFO)
         logging.debug(' --- new item ---')
         logging.debug('wavelength: {}'.format(self._downlink_wavelength))
         
@@ -646,7 +666,7 @@ class LinkBudgetCalculator():
         self._transmit_power_dBm = self.power_to_dBm(self._transmit_power)
         
         # DEBUG
-        #logging.debug('Tx power dBm: {}'.format(self._transmit_power_dBm))
+        logging.debug('Tx power dBm: {}'.format(self._transmit_power_dBm))
         
         # Transmit EIRP dBm
         self._transmit_eirp = self._transmit_power_dBm + self._transmit_losses + self._transmit_antenna_gain + self._transmit_pointing_loss
@@ -658,13 +678,13 @@ class LinkBudgetCalculator():
         self._downlink_path_loss = -20 * math.log10(4 * math.pi * self._link_distance / self._downlink_wavelength)
         
         # DEBUG
-        #logging.debug('Path Loss : {}'.format(self._downlink_path_loss))
+        logging.debug('Path Loss : {}'.format(self._downlink_path_loss))
         
         # Required Eb/N0 dB
         self._required_ebno = self._target_energy_noise_ratio - self._implementation_loss
         
         # DEBUG
-        #logging.debug('Req Eb/N0 : {}'.format(self._required_ebno))
+        logging.debug('Req Eb/N0 : {}'.format(self._required_ebno))
         
         # Recieved Power dBm
         self._received_power = self._transmit_eirp + self._downlink_path_loss + self._polarization_losses + self._atmospheric_loss + self._receive_antenna_gain + self._receiving_pointing_loss
