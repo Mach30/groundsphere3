@@ -1,5 +1,6 @@
 import unittest
 import pint
+import logging
 from .link_budget_test_case_dataset import LinkBudgetTestCaseDataset
 from lib.calculator import LinkBudgetCalculator
 
@@ -66,7 +67,7 @@ class TestLinkBudget(unittest.TestCase):
         self._test_dataset_item(13)
 		
     def test_lb15(self):
-		# use this for catching errors
+        # use this for catching errors
         with self.assertRaises(ValueError):
             self._test_dataset_item(14)
 		
@@ -164,8 +165,8 @@ class TestLinkBudget(unittest.TestCase):
         self.assertEqual(lb_calc.system_noise_figure, tc_data.system_noise_figure)
         self.assertEqual(lb_calc.noise_bandwidth, tc_data.noise_bandwidth)
         
-		# DEBUG
-        lb_calc.is_logging = False
+        # turn logging off for now
+        logging.basicConfig(level=logging.INFO)
 		
         # run the calculations
         lb_calc.run()
