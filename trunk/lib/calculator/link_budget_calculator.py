@@ -56,7 +56,6 @@ class LinkBudgetCalculator():
         self._energy_noise_ratio =        0.0                   # dB
         self._link_margin =               0.0                   # dB
         
-        self._is_logging =                False                 # bool
         self._is_valid =                  False                 # bool
         
         # constants
@@ -561,29 +560,7 @@ class LinkBudgetCalculator():
         """
         return self._link_margin
     
-    # ---------------- other variables ----------------		
-    @property
-    def is_logging(self):
-        """
-        Determines if the current calculator instance should log
-        output to the shell
-        
-        @rtype:  bool
-        @return: current logging status
-        """
-        return self._is_logging
-
-    @is_logging.setter
-    def is_logging(self, value):
-        """
-        Change the logging variable
-        
-        @type  value: bool
-        @param value: desired logging type
-        
-        """
-        self._is_logging = value
-	
+    # ---------------- other variables ----------------
     @property
     def is_valid(self):
         """
@@ -640,13 +617,9 @@ class LinkBudgetCalculator():
         # Downlink Wavelength m
         self._downlink_wavelength = self.c / self._downlink_frequency.to('1 / second')
         
-        # DEBUG
+        # logging setup
         logger = logging.getLogger()
-        if self._is_logging:
-            logger.setLevel(logging.DEBUG)
-        else:
-            logger.setLevel(logging.INFO)
-        logging.debug(' --- new item ---')
+        logger.addHandler(logging.NullHandler())
         logging.debug('wavelength: {}'.format(self._downlink_wavelength))
         
         # Link Distance m
@@ -659,55 +632,55 @@ class LinkBudgetCalculator():
             theta = math.pi - alpha - beta
             self._link_distance = math.sin(theta) * (self._altitude_satellite + self.Re) / math.sin(beta)
         
-        # DEBUG
+        # LOG
         logging.debug('link_distance: {}'.format(self._link_distance))
         
         # Transmit Power dBm
         self._transmit_power_dBm = self.power_to_dBm(self._transmit_power)
         
-        # DEBUG
+        # LOG
         logging.debug('Tx power dBm: {}'.format(self._transmit_power_dBm))
         
         # Transmit EIRP dBm
         self._transmit_eirp = self._transmit_power_dBm + self._transmit_losses + self._transmit_antenna_gain + self._transmit_pointing_loss
         
-        # DEBUG
+        # LOG
         logging.debug('Tx EIRP: {}'.format(self._transmit_eirp))
     
         # Downlink Path Loss dB
         self._downlink_path_loss = -20 * math.log10(4 * math.pi * self._link_distance / self._downlink_wavelength)
         
-        # DEBUG
+        # LOG
         logging.debug('Path Loss : {}'.format(self._downlink_path_loss))
         
         # Required Eb/N0 dB
         self._required_ebno = self._target_energy_noise_ratio - self._implementation_loss
         
-        # DEBUG
+        # LOG
         logging.debug('Req Eb/N0 : {}'.format(self._required_ebno))
         
         # Recieved Power dBm
         self._received_power = self._transmit_eirp + self._downlink_path_loss + self._polarization_losses + self._atmospheric_loss + self._receive_antenna_gain + self._receiving_pointing_loss
         
-        # DEBUG
+        # LOG
         logging.debug('Rx Power : {}'.format(self._received_power))
         
         # MDS dBm
         self._minimum_detectable_signal = -174 + 10 * math.log10(self._noise_bandwidth.to('hertz').magnitude) + self._system_noise_figure
         
-        # DEBUG
+        # LOG
         logging.debug('MDS : {}'.format(self._minimum_detectable_signal))
         
         # Eb/N0 Receieved dB
         self._energy_noise_ratio = self._received_power - self._minimum_detectable_signal
         
-        # DEBUG
+        # LOG
         logging.debug('Eb/N0 : {}'.format(self._energy_noise_ratio))
     
         # Link Margin dB
         self._link_margin = self._energy_noise_ratio - self._required_ebno
         
-        # DEBUG
+        # LOG
         logging.debug('Margin : {}'.format(self._link_margin))
         
         self._is_valid = True
