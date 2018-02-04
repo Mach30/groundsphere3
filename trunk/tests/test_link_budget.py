@@ -67,7 +67,6 @@ class TestLinkBudget(unittest.TestCase):
         self._test_dataset_item(13)
 		
     def test_lb15(self):
-        # use this for catching errors
         with self.assertRaises(ValueError):
             self._test_dataset_item(14)
 		
@@ -82,8 +81,22 @@ class TestLinkBudget(unittest.TestCase):
     def test_default_init(self):
         lb_calc = LinkBudgetCalculator(self.ureg)
         
+		# ensure default values are correct
         self.assertEqual(lb_calc.altitude_ground_station, 0 * self.ureg.meter)
-        # TODO: check all values
+        self.assertEqual(lb_calc.altitude_satellite, 0 * self.ureg.meter)
+        self.assertEqual(lb_calc.orbit_elevation_angle, 0 * self.ureg.degree)
+        self.assertEqual(lb_calc.downlink_frequency, 0 * self.ureg.hertz)
+        self.assertEqual(lb_calc.target_energy_noise_ratio, 0)
+        self.assertEqual(lb_calc.implementation_loss, 0)
+        self.assertEqual(lb_calc.transmit_power, 0 * self.ureg.watt)
+        self.assertEqual(lb_calc.transmit_losses, 0)
+        self.assertEqual(lb_calc.transmit_antenna_gain, 0)
+        self.assertEqual(lb_calc.transmit_pointing_loss, 0)
+        self.assertEqual(lb_calc.polarization_losses, 0)
+        self.assertEqual(lb_calc.atmospheric_loss, 0)
+        self.assertEqual(lb_calc.receive_antenna_gain, 0)
+        self.assertEqual(lb_calc.system_noise_figure, 0)
+        self.assertEqual(lb_calc.noise_bandwidth, 0 * self.ureg.hertz)
 
     def _test_dataset_item(self, item_number):        
         # get the test case data
