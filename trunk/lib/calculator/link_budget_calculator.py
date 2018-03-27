@@ -722,6 +722,7 @@ class LinkBudgetCalculator():
         val = val + 'Downlink Frequency:\t\t {}\n'.format(str(self._downlink_frequency))
         val = val + 'Target Eb/N0:\t\t\t {} dB\n'.format(str(self._target_energy_noise_ratio))
         val = val + 'Implementation Loss:\t\t {} dB\n'.format(str(self._implementation_loss))
+        val = val + 'Atmospheric Loss:\t\t {} dB\n'.format(str(self._atmospheric_loss))
         val = val + 'Transmit Power:\t\t\t {}\n'.format(str(self._transmit_power))
         val = val + 'Transmit Losses:\t\t {} dB\n'.format(str(self._transmit_losses))
         val = val + 'Transmit Antenna Gain:\t\t {} dB\n'.format(str(self._transmit_antenna_gain))
@@ -734,7 +735,7 @@ class LinkBudgetCalculator():
         val = val + '---------------- intermediates ----------------\n'
         val = val + 'Downlink Wavelength:\t\t {}\n'.format(str(self._downlink_wavelength))
         val = val + 'Link Distance:\t\t\t {}\n'.format(str(self._link_distance))
-        val = val + 'Required Eb/N0:\t\t\t {}\n'.format(str(self._required_ebno))
+        val = val + 'Required Eb/N0:\t\t\t {} dB\n'.format(str(self._required_ebno))
         val = val + 'Transmit Power (dBm):\t\t {} dBm\n'.format(str(self._transmit_power_dBm))
         val = val + 'Transmit EIRP:\t\t\t {} dBm\n'.format(str(self._transmit_eirp))
         val = val + 'Downlink Path Link:\t\t {} dB\n'.format(str(self._downlink_path_loss))
@@ -742,7 +743,7 @@ class LinkBudgetCalculator():
         val = val + 'Receieved Power:\t\t {} dBm\n'.format(str(self._received_power))
         val = val + 'Minimum Detectable Signal:\t {} dBm\n'.format(str(self._minimum_detectable_signal))
         val = val + 'Energy to Noise Ratio:\t\t {} dB\n'.format(str(self._energy_noise_ratio))
-        val = val + 'Link Margin:\t\t\t {} dBm\n'.format(str(self._link_distance))
+        val = val + 'Link Margin:\t\t\t {} dBm\n'.format(str(self._link_margin))
         val = val + '\n'
         val = val + 'Valid Calculation:\t\t {}\n'.format(str(self._is_valid))
         
