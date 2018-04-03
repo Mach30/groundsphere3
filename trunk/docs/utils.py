@@ -2,7 +2,6 @@
 import os
 import ephem
 import datetime
-import urllib.request as urllib
 import math
 
 # ---------
@@ -61,19 +60,19 @@ def atmloss_at_elev(ureg, elev):
 # ---------------------------------------------------------------------------------------
 # look angles for NOAA-19 satellite pass
 # uses pyephem and online TLEs for next pass on given datetime
-def compute_angles(date=None):
+def compute_angles(tle=None, date=None):
 	# handle the date argument
-	date = date if date is not None else datetime.datetime.now()
+	date = datetime.datetime.now() if date is None else date 
 
-	# fetch the tle from celestrak online
-	response = urllib.urlopen('http://www.celestrak.com/NORAD/elements/noaa.txt')
-	html = response.read()
-
-	# split the html by new lines
-	# we want NOAA 19, which was these indices as of April 4th, 2018
-	name = str(html).split('\\r\\n')[57]
-	line1 = str(html).split('\\r\\n')[58]
-	line2 = str(html).split('\\r\\n')[59]
+	# use an old TLE or the argument
+	if tle is None:
+		name = 'NOAA 19 [+]'
+		line1 = '1 33591U 09005A   18092.90091581  .00000055  00000-0  55075-4 0  9994'
+		line2 = '2 33591  99.1353  69.4619 0014005 174.2137 185.9198 14.12266303471284'
+	else:
+		name = tle[0]
+		line1 = tle[1]
+		line2 = tle[2]
 
 	# read in the tle
 	tle_rec = ephem.readtle(name, line1, line2)
