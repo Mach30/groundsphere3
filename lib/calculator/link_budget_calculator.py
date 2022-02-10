@@ -83,7 +83,8 @@ class LinkBudgetCalculator():
         @param value: altitude of ground station relative to sea level
         
         """
-        self._ureg.check('[length]')(value)
+        if not value.check('[length]'):
+            raise TypeError('altitude_ground_station expected Pint length, received %s' % str(value))
         self._altitude_ground_station = value
         
     # ---------------- altitude_satellite ----------------
@@ -107,7 +108,8 @@ class LinkBudgetCalculator():
         @param value: altitude of satellite relative to sea level
         
         """
-        self._ureg.check('[length]')(value)
+        if not value.check('[length]'):
+            raise TypeError('altitude_satellite expected Pint length, received %s' % str(value))
         self._altitude_satellite = value
 
     # ---------------- orbit_elevation_angle ----------------
@@ -131,7 +133,8 @@ class LinkBudgetCalculator():
         @param value: elevation angle of satellite
         
         """
-        self._ureg.check('degree')(value)
+        if not value.check('degree'):
+            raise TypeError('orbit_elevation_angle expected Pint degree, received %s' % str(value))
         self._orbit_elevation_angle = value
         
     # ---------------- downlink_frequency ----------------
@@ -155,7 +158,8 @@ class LinkBudgetCalculator():
         @param value: desired downlink signal frequency in Hertz
         
         """
-        self._ureg.check('[frequency]')(value)
+        if not value.check('[frequency]'):
+            raise TypeError('downlink_frequency expected Pint frequency, received %s' % str(value))
         self._downlink_frequency = value
         
     # ---------------- target_energy_noise_ratio ----------------
@@ -225,7 +229,8 @@ class LinkBudgetCalculator():
         @param value: desired transmit power in Watts
         
         """
-        self._ureg.check('[power]')(value)
+        if not value.check('[power]'):
+            raise TypeError('transmit_power expected Pint power, received %s' % str(value))
         self._transmit_power = value
         
     # ---------------- transmit_losses ----------------
@@ -433,7 +438,8 @@ class LinkBudgetCalculator():
         @param value: desired noise_bandwidth in Hertz
         
         """
-        self._ureg.check('[frequency]')(value)
+        if not value.check('[frequency]'):
+            raise TypeError('noise_bandwidth expected Pint frequency, received %s' % str(value))
         self._noise_bandwidth = value
         
     # ------------------------------------------------
@@ -695,7 +701,8 @@ class LinkBudgetCalculator():
         @rtype:  number
         @return: result of conversion in dBm
         """
-        self._ureg.check('[power]')(val_power)
+        if not val_power.check('[power]'):
+            raise TypeError('val_power expected Pint power, received %s' % str(val_power))
         val_mW = val_power.to(self._ureg.mW)
         val_power_dBm = 10 * math.log10(val_mW.magnitude)
         return val_power_dBm
